@@ -116,7 +116,7 @@ public final class Core {
 
 		int returnCode = 1;
 		do {
-			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
+			gameState = new GameState(1, 0, 0, MAX_LIVES, MAX_LIVES, 0, 0, 0, 0);
 
 			switch (returnCode) {
 			case 1:
@@ -146,10 +146,10 @@ public final class Core {
 					gameState = ((GameScreen) currentScreen).getGameState();
 
 					gameState = new GameState(gameState.getLevel() + 1,
-							gameState.getScore(),
-							gameState.getLivesRemaining(),
-							gameState.getBulletsShot(),
-							gameState.getShipsDestroyed());
+							gameState.getScore(), gameState.getScore2(),
+							gameState.getLivesRemaining(), gameState.getLivesRemaining2(),
+							gameState.getBulletsShot(), gameState.getBulletsShot2(),
+							gameState.getShipsDestroyed(), gameState.getShipsDestroyed2());
 
 				} while (gameState.getLivesRemaining() > 0
 						&& gameState.getLevel() <= NUM_LEVELS);
