@@ -298,7 +298,7 @@ public final class DrawManager {
 	public void drawTitle(final Screen screen) {
 		String titleString = "Invaders";
 		String instructionsString =
-				"select with w+s / arrows, confirm with space";
+				"arrows, confirm with space";
 
 		backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, instructionsString,
@@ -307,7 +307,18 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.GREEN);
 		drawCenteredBigString(screen, titleString, screen.getHeight() / 3);
 	}
+	public void drawSettingTitle(final Screen screen) {
+		String titleString = "Settings";
+		String instructionsString =
+				"arrows, confirm with space";
 
+		backBufferGraphics.setColor(Color.GRAY);
+		drawCenteredRegularString(screen, instructionsString,
+				screen.getHeight() / 2);
+
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, titleString, screen.getHeight() / 3);
+	}
 //	public void drawMenu(final Screen screen, final int option) {
 //		String playString = "Play";
 //		String highScoresString = "High scores";
@@ -334,7 +345,7 @@ public final class DrawManager {
 //	}
 
 	public void drawMenu(final Screen screen, final int selection) {
-		String menuStrings[] = {"1P Play", "2P Play", "High scores", "exit"};
+		String menuStrings[] = {"1P Play", "2P Play", "Setting","High scores", "exit"};
 
 		backBufferGraphics.setColor(Color.GREEN);
 		for( int i = 0 ; i < menuStrings.length ; i++){
@@ -345,6 +356,20 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, menuStrings[selection], screen.getHeight() / 3 *2 + fontRegularMetrics.getHeight()*selection);
 	}
+
+	public void drawSettingMenu(final Screen screen, final int selection, String[] str) {
+		String menuStrings[] = str;
+
+		backBufferGraphics.setColor(Color.GREEN);
+		for( int i = 0 ; i < menuStrings.length ; i++){
+			if( i == selection )
+				continue;
+			drawCenteredRegularString(screen, menuStrings[i], screen.getHeight()/3*2 + fontRegularMetrics.getHeight() * i);
+		}
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, menuStrings[selection], screen.getHeight() / 3 *2 + fontRegularMetrics.getHeight()*selection);
+	}
+
 	public void drawCenterText(final Screen screen, String text, int height, Color color ) {
 		backBufferGraphics.setColor(color);
 		drawCenteredRegularString(screen, text, height);

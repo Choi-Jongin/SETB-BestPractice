@@ -147,8 +147,9 @@ public final class Core {
         gameSettings.add(SETTINGS_LEVEL_7);
 
         int returnCode = -1;
+        int startlives = MAX_LIVES;
+        IGameState.Difficult difficult = IGameState.Difficult.NORMAL;
         do {
-
             switch (returnCode) {
                 case -1:
                     // Main menu.
@@ -161,9 +162,10 @@ public final class Core {
 
                 case 0:
                     // Game & score.
-
-                    GameState gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
-                    gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
+                    startlives = MAX_LIVES;
+                    if(difficult == IGameState.Difficult.EASY ) startlives += 2;
+                    if(difficult == IGameState.Difficult.HARD ) startlives -= 2;
+                    GameState gameState = new GameState(1, difficult,0, startlives, 0, 0);
                     do {
                         // One extra live every few levels.
                         boolean bonusLife = gameState.getLevel()
@@ -180,7 +182,7 @@ public final class Core {
 
                         gameState = ((GameScreen) currentScreen).getGameState();
 
-                        gameState = new GameState(gameState.getLevel() + 1,
+                        gameState = new GameState(gameState.getLevel() + 1, gameState.getDifficult(),
                                 gameState.getScore(),
                                 gameState.getLivesRemaining(),
                                 gameState.getBulletsShot(),
@@ -209,8 +211,10 @@ public final class Core {
                     input[1] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_UP};
                     for( int i = 0 ; i < playernum ; i++)
                         players.add( new Player("Player"+(i+1), 0,MAX_LIVES, input[i]));
-
-                    customGameState = new CustomGameState(1,  players, CustomGameState.MultiMethod.LOCAL);
+                    startlives = MAX_LIVES;
+                    if(difficult == IGameState.Difficult.EASY ) startlives += 2;
+                    if(difficult == IGameState.Difficult.HARD ) startlives -= 2;
+                    customGameState = new CustomGameState(1, difficult,  players, CustomGameState.MultiMethod.LOCAL);
 
                     do {
                         // One extra live every few levels.
@@ -227,8 +231,7 @@ public final class Core {
                         LOGGER.info("Closing game screen.");
 
                         customGameState = ((CustomGameScreen) currentScreen).getGameState();
-
-                        customGameState = new CustomGameState(customGameState.getLevel() + 1, customGameState.getPlayers(), customGameState.getMethod() );
+                        customGameState = new CustomGameState(customGameState.getLevel() + 1, customGameState.getDifficult(), customGameState.getPlayers(), customGameState.getMethod() );
 
                     } while (customGameState.getMaxLives() > 0
                             && customGameState.getLevel() <= NUM_LEVELS);
@@ -242,17 +245,30 @@ public final class Core {
                     break;
                 case 2:
                     // High scores.
+                    currentScreen = new SettingScreen(width, height, FPS, difficult);
+                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                            + " high score screen at " + FPS + " fps.");
+                    returnCode = frame.setScreen(currentScreen);
+                    difficult = ((SettingScreen)currentScreen).getDifficult();
+                    for( GameSettings gs : gameSettings)
+                               gs.setDifficult(difficult);
+                    LOGGER.info("Closing high score screen.");
+                    break;
+                case 3:
+                    // High scores.
                     currentScreen = new HighScoreScreen(width, height, FPS);
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                             + " high score screen at " + FPS + " fps.");
                     returnCode = frame.setScreen(currentScreen);
+
                     LOGGER.info("Closing high score screen.");
+
                     break;
                 default:
                     break;
             }
 
-        } while (returnCode != 3);
+        } while (returnCode != 4);
 
         fileHandler.flush();
         fileHandler.close();

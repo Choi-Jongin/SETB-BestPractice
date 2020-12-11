@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import engine.Cooldown;
-import engine.Core;
-import engine.GameSettings;
-import engine.GameState;
+import engine.*;
 import entity.*;
 
 /**
@@ -38,6 +35,7 @@ public class GameScreen extends Screen {
 	private GameSettings gameSettings;
 	/** Current difficulty level number. */
 	private int level;
+	private IGameState.Difficult difficult;
 	/** Formation of enemy ships. */
 	private EnemyShipFormation enemyShipFormation;
 	/** Player's ship. */
@@ -91,6 +89,7 @@ public class GameScreen extends Screen {
 		this.gameSettings = gameSettings;
 		this.bonusLife = bonusLife;
 		this.level = gameState.getLevel();
+		this.difficult = gameState.getDifficult();
 		this.score = gameState.getScore();
 		this.lives = gameState.getLivesRemaining();
 		if (this.bonusLife)
@@ -281,7 +280,7 @@ public class GameScreen extends Screen {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bullet, enemyShip)) {
-						this.score += enemyShip.getPointValue();
+						this.score += (int)(enemyShip.getPointValue()*getDifficultScore());
 						this.shipsDestroyed++;
 						this.enemyShipFormation.destroy(enemyShip);
 						recyclable.add(bullet);
@@ -289,7 +288,7 @@ public class GameScreen extends Screen {
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
 						&& checkCollision(bullet, this.enemyShipSpecial)) {
-					this.score += this.enemyShipSpecial.getPointValue();
+					this.score += (int)(this.enemyShipSpecial.getPointValue()*getDifficultScore());
 					this.shipsDestroyed++;
 					this.enemyShipSpecial.destroy();
 					this.enemyShipSpecialExplosionCooldown.reset();
@@ -331,7 +330,21 @@ public class GameScreen extends Screen {
 	 * @return Current game state.
 	 */
 	public final GameState getGameState() {
-		return new GameState(this.level, this.score, this.lives,
+		return new GameState(this.level, this.difficult, this.score, this.lives,
 				this.bulletsShot, this.shipsDestroyed);
+	}
+	private double getDifficultScore(){
+		switch (difficult){
+			case EASY -> {
+				return 0.7;
+			}
+			case NORMAL -> {
+				return 1.0;
+			}
+			case HARD -> {
+				return 1.4;
+			}
+		}
+		return 1.0;
 	}
 }

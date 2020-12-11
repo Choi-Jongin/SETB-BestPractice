@@ -18,6 +18,7 @@ public class TitleScreen extends Screen {
 	
 	/** Time between changes in user selection. */
 	private Cooldown selectionCooldown;
+	private int maxselect = 4;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -77,7 +78,7 @@ public class TitleScreen extends Screen {
 	 * Shifts the focus to the next menu item.
 	 */
 	private void nextMenuItem() {
-		if (this.returnCode == 3)
+		if (this.returnCode == maxselect)
 			this.returnCode = 0;
 		else
 			this.returnCode++;
@@ -88,7 +89,7 @@ public class TitleScreen extends Screen {
 	 */
 	private void previousMenuItem() {
 		if (this.returnCode == 0)
-			this.returnCode = 3;
+			this.returnCode = maxselect;
 		else
 			this.returnCode--;
 	}

@@ -36,6 +36,7 @@ public class CustomGameScreen extends Screen {
     private GameSettings gameSettings;
     /** Current difficulty level number. */
     private int level;
+    private IGameState.Difficult difficult;
     /** Formation of enemy ships. */
     private EnemyShipFormation enemyShipFormation;
 //	/** Player's ship. */
@@ -93,6 +94,7 @@ public class CustomGameScreen extends Screen {
         this.gameSettings = gameSettings;
         this.bonusLife = bonusLife;
         this.level = customGameState.getLevel();
+        this.difficult = customGameState.getDifficult();
         this.multimethod = customGameState.getMethod();
         if (this.bonusLife) {
             for( Player p :  players){
@@ -316,7 +318,7 @@ public class CustomGameScreen extends Screen {
                 for (EnemyShip enemyShip : this.enemyShipFormation) {
                     if (!enemyShip.isDestroyed()
                             && checkCollision(bullet, enemyShip)) {
-                        ((Ship) bullet.getShooter()).getPlayer().addScore(enemyShip.getPointValue());
+                        ((Ship) bullet.getShooter()).getPlayer().addScore((int)(this.enemyShipSpecial.getPointValue()*getDifficultScore()));
                         ((Ship) bullet.getShooter()).getPlayer().addshipsDestroyed(1);
                         this.enemyShipFormation.destroy(enemyShip);
                         recyclable.add(bullet);
@@ -325,7 +327,7 @@ public class CustomGameScreen extends Screen {
                 if (this.enemyShipSpecial != null
                         && !this.enemyShipSpecial.isDestroyed()
                         && checkCollision(bullet, this.enemyShipSpecial)) {
-                    ((Ship)bullet.getShooter()).getPlayer().addScore(this.enemyShipSpecial.getPointValue());
+                    ((Ship)bullet.getShooter()).getPlayer().addScore((int)(this.enemyShipSpecial.getPointValue()*getDifficultScore()));
                     ((Ship)bullet.getShooter()).getPlayer().addshipsDestroyed(1);
                     this.enemyShipSpecial.destroy();
                     this.enemyShipSpecialExplosionCooldown.reset();
@@ -370,7 +372,7 @@ public class CustomGameScreen extends Screen {
      * @return Current game state.
      */
     public final CustomGameState getGameState() {
-        return new CustomGameState(this.level, players, multimethod);
+        return new CustomGameState(this.level, this.difficult, players, multimethod);
     }
 
     public boolean allPlayerDie(){
@@ -379,5 +381,20 @@ public class CustomGameScreen extends Screen {
                 return false;
         }
         return true;
+    }
+
+    private double getDifficultScore(){
+        switch (difficult){
+            case EASY -> {
+                return 0.7;
+            }
+            case NORMAL -> {
+                return 1.0;
+            }
+            case HARD -> {
+                return 1.4;
+            }
+        }
+        return 1.0;
     }
 }

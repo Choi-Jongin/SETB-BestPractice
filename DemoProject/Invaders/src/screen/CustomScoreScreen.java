@@ -162,7 +162,7 @@ public class CustomScoreScreen extends Screen {
                 if (this.isNewRecord[player])
                     saveScore();
                 if (++player >= playernum) {
-                    this.returnCode = 2;
+                    this.returnCode = 3;
                     this.isRunning = false;
                 }
 

@@ -31,10 +31,10 @@ public class GameState extends IGameState{
 	 * @param shipsDestroyed
 	 *            Ships destroyed until now.
 	 */
-	public GameState(final int level, final int score,
+	public GameState(final int level,Difficult difficult, final int score,
 			final int livesRemaining, final int bulletsShot,
 			final int shipsDestroyed) {
-		super(level);
+		super(level,difficult);
 		this.score = score;
 		this.livesRemaining = livesRemaining;
 		this.bulletsShot = bulletsShot;

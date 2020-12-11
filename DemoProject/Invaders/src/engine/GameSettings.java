@@ -17,6 +17,9 @@ public class GameSettings {
 	/** Frequency of enemy shootings, +/- 30%. */
 	private int shootingFrecuency;
 
+
+	private IGameState.Difficult difficult;
+
 	/**
 	 * Constructor.
 	 * 
@@ -35,6 +38,7 @@ public class GameSettings {
 		this.formationHeight = formationHeight;
 		this.baseSpeed = baseSpeed;
 		this.shootingFrecuency = shootingFrecuency;
+		difficult = IGameState.Difficult.NORMAL;
 	}
 
 	/**
@@ -62,7 +66,29 @@ public class GameSettings {
 	 * @return the shootingFrecuency
 	 */
 	public final int getShootingFrecuency() {
-		return shootingFrecuency;
+		return (int)(shootingFrecuency*getDifficultFreFrecuency());
 	}
 
+	private double getDifficultFreFrecuency(){
+		switch (difficult){
+			case EASY -> {
+				return 1.5;
+			}
+			case NORMAL -> {
+				return 1.0;
+			}
+			case HARD -> {
+				return 0.6;
+			}
+		}
+		return 1.0;
+	}
+
+	public IGameState.Difficult getDifficult() {
+		return difficult;
+	}
+
+	public void setDifficult(IGameState.Difficult difficult) {
+		this.difficult = difficult;
+	}
 }

@@ -111,7 +111,7 @@ public class ScoreScreen extends Screen {
 					saveScore();
 			} else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
 				// recode.
-				this.returnCode = 2;
+				this.returnCode = 3;
 				this.isRunning = false;
 				if (this.isNewRecord)
 					saveScore();

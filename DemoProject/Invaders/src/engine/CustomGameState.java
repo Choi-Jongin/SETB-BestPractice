@@ -20,8 +20,8 @@ public class CustomGameState extends IGameState{
     //플레이어
     ArrayList<Player> players;
 
-    public CustomGameState(final int level, ArrayList<Player> players, MultiMethod method) {
-        super(level);
+    public CustomGameState(final int level, Difficult difficult,ArrayList<Player> players, MultiMethod method) {
+        super(level, difficult);
         this.players = players;
         this.method =  method;
     }
