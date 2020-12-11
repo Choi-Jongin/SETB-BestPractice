@@ -450,7 +450,7 @@ public final class DrawManager {
 			final boolean isNewRecord) {
 		String gameOverString = "Game Over";
 		String continueOrExitString =
-				"Press Space to play again, Escape to exit";
+				"Press Space to Show recode, Escape to exit";
 
 		int height = isNewRecord ? 4 : 2;
 
