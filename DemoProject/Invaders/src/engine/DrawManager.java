@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import entity.Player;
 import screen.Screen;
 import entity.Entity;
 import entity.Ship;
@@ -245,6 +246,13 @@ public final class DrawManager {
 		backBufferGraphics.drawString(scoreString2, screen.getWidth() - 60, 25);
 	}
 
+	public void drawScore(final Screen screen, final int score, int player) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String scoreString = String.format("%04d", score);
+		backBufferGraphics.drawString(scoreString, screen.getWidth() - 60, 25+25*player);
+	}
+
 	/**
 	 * Draws number of remaining lives on screen.
 	 * 
@@ -265,7 +273,14 @@ public final class DrawManager {
 		for (int i = 0; i < lives2; i++)
 			drawEntity(dummyShip, 180 + 35 * i, 10);
 	}
-
+	public void drawLives(final Screen screen, final int lives, int player) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.drawString(Integer.toString(lives), 20, 25+25*player);
+		Ship dummyShip = new Ship(0, 0,  Player.color[player]);
+		for (int i = 0; i < lives; i++)
+			drawEntity(dummyShip, 40 + 35 * i, 10+25*player);
+	}
 	/**
 	 * Draws a thick line from side to side of the screen.
 	 * 
@@ -300,37 +315,42 @@ public final class DrawManager {
 		drawCenteredBigString(screen, titleString, screen.getHeight() / 3);
 	}
 
-	/**
-	 * Draws main menu.
-	 * 
-	 * @param screen
-	 *            Screen to draw on.
-	 * @param option
-	 *            Option selected.
-	 */
-	public void drawMenu(final Screen screen, final int option) {
-		String playString = "Play";
-		String highScoresString = "High scores";
-		String exitString = "exit";
+//	public void drawMenu(final Screen screen, final int option) {
+//		String playString = "Play";
+//		String highScoresString = "High scores";
+//		String exitString = "exit";
+//
+//		if (option == 2)
+//			backBufferGraphics.setColor(Color.GREEN);
+//		else
+//			backBufferGraphics.setColor(Color.WHITE);
+//		drawCenteredRegularString(screen, playString,
+//				screen.getHeight() / 3 * 2);
+//		if (option == 3)
+//			backBufferGraphics.setColor(Color.GREEN);
+//		else
+//			backBufferGraphics.setColor(Color.WHITE);
+//		drawCenteredRegularString(screen, highScoresString, screen.getHeight()
+//				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
+//		if (option == 0)
+//			backBufferGraphics.setColor(Color.GREEN);
+//		else
+//			backBufferGraphics.setColor(Color.WHITE);
+//		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
+//				* 2 + fontRegularMetrics.getHeight() * 4);
+//	}
 
-		if (option == 2)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, playString,
-				screen.getHeight() / 3 * 2);
-		if (option == 3)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, highScoresString, screen.getHeight()
-				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
-		if (option == 0)
-			backBufferGraphics.setColor(Color.GREEN);
-		else
-			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 4);
+	public void drawMenu(final Screen screen, final int selection) {
+		String menuStrings[] = {"1P Play", "2P Play", "High scores", "exit"};
+
+		backBufferGraphics.setColor(Color.GREEN);
+		for( int i = 0 ; i < menuStrings.length ; i++){
+			if( i == selection )
+				continue;
+			drawCenteredRegularString(screen, menuStrings[i], screen.getHeight()/3*2 + fontRegularMetrics.getHeight() * i);
+		}
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, menuStrings[selection], screen.getHeight() / 3 *2 + fontRegularMetrics.getHeight()*selection);
 	}
 
 	/**

@@ -31,7 +31,7 @@ public class HighScoreScreen extends Screen {
 	public HighScoreScreen(final int width, final int height, final int fps) {
 		super(width, height, fps);
 
-		this.returnCode = 1;
+		this.returnCode = -1;
 
 		try {
 			this.highScores = Core.getFileManager().loadHighScores();

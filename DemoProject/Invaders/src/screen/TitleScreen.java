@@ -33,7 +33,7 @@ public class TitleScreen extends Screen {
 		super(width, height, fps);
 
 		// Defaults to play.
-		this.returnCode = 2;
+		this.returnCode = 0;
 		this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
 		this.selectionCooldown.reset();
 	}
@@ -79,8 +79,6 @@ public class TitleScreen extends Screen {
 	private void nextMenuItem() {
 		if (this.returnCode == 3)
 			this.returnCode = 0;
-		else if (this.returnCode == 0)
-			this.returnCode = 2;
 		else
 			this.returnCode++;
 	}
@@ -91,8 +89,6 @@ public class TitleScreen extends Screen {
 	private void previousMenuItem() {
 		if (this.returnCode == 0)
 			this.returnCode = 3;
-		else if (this.returnCode == 2)
-			this.returnCode = 0;
 		else
 			this.returnCode--;
 	}
@@ -105,7 +101,6 @@ public class TitleScreen extends Screen {
 
 		drawManager.drawTitle(this);
 		drawManager.drawMenu(this, this.returnCode);
-
 		drawManager.completeDrawing(this);
 	}
 }
