@@ -323,5 +323,4 @@ public final class Core {
                                                final int variance) {
         return new Cooldown(milliseconds, variance);
     }
-
 }
