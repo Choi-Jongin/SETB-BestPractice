@@ -17,6 +17,7 @@ public class Bullet extends Entity {
 	 * positive is down.
 	 */
 	private int speed;
+	private int player;
 
 
 	Entity shooter;
@@ -47,6 +48,7 @@ public class Bullet extends Entity {
 		this.shooter = shooter;
 		this.isEnemy = isEnemy;
 		this.speed = speed;
+		this.player = player;
 		setSprite();
 	}
 
@@ -85,7 +87,7 @@ public class Bullet extends Entity {
 	public final int getSpeed() {
 		return this.speed;
 	}
-
+  
 	public Entity getShooter() {
 		return shooter;
 	}

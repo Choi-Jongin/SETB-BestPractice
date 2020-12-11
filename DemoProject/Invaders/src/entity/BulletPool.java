@@ -44,6 +44,7 @@ public final class BulletPool {
 			bullet.setPositionY(positionY);
 			bullet.setSpeed(speed);
 			bullet.setSprite();
+			bullet.setPlayer(ship.getPlayer());
 		} else {
 			bullet = new Bullet(positionX, positionY, speed, shooter, isEnemy);
 			bullet.setPositionX(positionX - bullet.getWidth() / 2);
