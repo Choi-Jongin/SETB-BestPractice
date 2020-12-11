@@ -172,7 +172,7 @@ public final class FileManager {
 	 * @throws IOException
 	 *             In case of loading problems.
 	 */
-	public List<Score> loadHighScores() throws IOException {
+	public List<Score> loadHighScores(String path) throws IOException {
 
 		List<Score> highScores = new ArrayList<Score>();
 		InputStream inputStream = null;
@@ -185,14 +185,14 @@ public final class FileManager {
 
 			String scoresPath = new File(jarPath).getParent();
 			scoresPath += File.separator;
-			scoresPath += "scores";
+			scoresPath += path;
 
 			File scoresFile = new File(scoresPath);
 			inputStream = new FileInputStream(scoresFile);
 			bufferedReader = new BufferedReader(new InputStreamReader(
 					inputStream, Charset.forName("UTF-8")));
 
-			logger.info("Loading user high scores.");
+			logger.info("Loading "+ path +" high scores.");
 
 			Score highScore = null;
 			String name = bufferedReader.readLine();
@@ -217,7 +217,7 @@ public final class FileManager {
 		Collections.sort(highScores);
 		return highScores;
 	}
-
+	public List<Score> loadHighScores() throws IOException { return loadHighScores("scores");}
 	/**
 	 * Saves user high scores to disk.
 	 * 
@@ -226,7 +226,7 @@ public final class FileManager {
 	 * @throws IOException
 	 *             In case of loading problems.
 	 */
-	public void saveHighScores(final List<Score> highScores) 
+	public void saveHighScores(final List<Score> highScores, String path)
 			throws IOException {
 		OutputStream outputStream = null;
 		BufferedWriter bufferedWriter = null;
@@ -238,7 +238,7 @@ public final class FileManager {
 
 			String scoresPath = new File(jarPath).getParent();
 			scoresPath += File.separator;
-			scoresPath += "scores";
+			scoresPath += path;
 
 			File scoresFile = new File(scoresPath);
 
@@ -248,8 +248,7 @@ public final class FileManager {
 			outputStream = new FileOutputStream(scoresFile);
 			bufferedWriter = new BufferedWriter(new OutputStreamWriter(
 					outputStream, Charset.forName("UTF-8")));
-
-			logger.info("Saving user high scores.");
+			logger.info("Saving "+ path +" high scores.");
 
 			// Saves 7 or less scores.
 			int savedCount = 0;
@@ -268,4 +267,6 @@ public final class FileManager {
 				bufferedWriter.close();
 		}
 	}
+
+	public void saveHighScores(final List<Score> highScores)throws IOException{ saveHighScores(highScores, "scores");}
 }

@@ -1,47 +1,19 @@
-[INFO|1:59:25]: Started loading resources. 
-[FINE|1:59:25]: Sprite Ship loaded. 
-[FINE|1:59:25]: Sprite ShipDestroyed loaded. 
-[FINE|1:59:25]: Sprite Bullet loaded. 
-[FINE|1:59:25]: Sprite EnemyBullet loaded. 
-[FINE|1:59:25]: Sprite EnemyShipA1 loaded. 
-[FINE|1:59:25]: Sprite EnemyShipA2 loaded. 
-[FINE|1:59:25]: Sprite EnemyShipB1 loaded. 
-[FINE|1:59:25]: Sprite EnemyShipB2 loaded. 
-[FINE|1:59:25]: Sprite EnemyShipC1 loaded. 
-[FINE|1:59:25]: Sprite EnemyShipC2 loaded. 
-[FINE|1:59:25]: Sprite EnemyShipSpecial loaded. 
-[FINE|1:59:25]: Sprite Explosion loaded. 
-[INFO|1:59:25]: Finished loading the sprites. 
-[INFO|1:59:25]: Finished loading the fonts. 
-[INFO|1:59:25]: Starting 448x520 title screen at 60 fps. 
-[INFO|1:59:27]: Closing title screen. 
-[INFO|1:59:27]: Starting 448x520 high score screen at 60 fps. 
-[INFO|1:59:29]: Closing high score screen. 
-[INFO|1:59:29]: Starting 448x520 title screen at 60 fps. 
-[INFO|1:59:30]: Closing title screen. 
-[INFO|1:59:30]: Starting 448x520 game screen at 60 fps. 
-[INFO|1:59:30]: Initializing 5x4 ship formation in (20,100) 
-[INFO|1:59:38]: Destroyed ship in (4,3) 
-[INFO|1:59:39]: Removed enemy 3 from column 4 
-[INFO|1:59:39]: Destroyed ship in (4,2) 
-[INFO|1:59:40]: Removed enemy 2 from column 4 
-[INFO|1:59:46]: Hit on player ship, 0 lives remaining. 
-[INFO|1:59:47]: Screen cleared with a score of -58 
-[INFO|1:59:47]: Closing game screen. 
-[INFO|1:59:47]: Starting 448x520 score screen at 60 fps, with a score of -58, 0 lives remaining, 4 bullets shot and 2 ships destroyed. 
-[INFO|1:59:47]: Loading user high scores. 
-[INFO|1:59:50]: Saving user high scores. 
-[INFO|1:59:50]: Closing score screen. 
-[INFO|1:59:50]: Loading user high scores. 
-[INFO|1:59:50]: Starting 448x520 high score screen at 60 fps. 
-[INFO|1:59:52]: Closing high score screen. 
-[INFO|1:59:52]: Starting 448x520 title screen at 60 fps. 
-[INFO|1:59:53]: Closing title screen. 
-[INFO|1:59:53]: Starting 448x520 high score screen at 60 fps. 
-[INFO|1:59:55]: Closing high score screen. 
-[INFO|1:59:55]: Starting 448x520 title screen at 60 fps. 
-[INFO|1:59:57]: Closing title screen. 
-[INFO|1:59:57]: Starting 448x520 game screen at 60 fps. 
-[INFO|1:59:57]: Initializing 5x4 ship formation in (20,100) 
-[INFO|2:00:06]: Destroyed ship in (4,2) 
-[INFO|2:00:07]: Removed enemy 2 from column 4 
+[INFO|2:49:46]: Started loading resources. 
+[FINE|2:49:46]: Sprite Ship loaded. 
+[FINE|2:49:46]: Sprite ShipDestroyed loaded. 
+[FINE|2:49:46]: Sprite Bullet loaded. 
+[FINE|2:49:46]: Sprite EnemyBullet loaded. 
+[FINE|2:49:46]: Sprite EnemyShipA1 loaded. 
+[FINE|2:49:46]: Sprite EnemyShipA2 loaded. 
+[FINE|2:49:46]: Sprite EnemyShipB1 loaded. 
+[FINE|2:49:46]: Sprite EnemyShipB2 loaded. 
+[FINE|2:49:46]: Sprite EnemyShipC1 loaded. 
+[FINE|2:49:46]: Sprite EnemyShipC2 loaded. 
+[FINE|2:49:46]: Sprite EnemyShipSpecial loaded. 
+[FINE|2:49:46]: Sprite Explosion loaded. 
+[INFO|2:49:46]: Finished loading the sprites. 
+[INFO|2:49:46]: Finished loading the fonts. 
+[INFO|2:49:46]: Starting 448x520 title screen at 60 fps. 
+[INFO|2:49:48]: Closing title screen. 
+[INFO|2:49:48]: Loading normalscores high scores. 
+[INFO|2:49:48]: Starting 448x520 high score screen at 60 fps. 

@@ -42,6 +42,7 @@ public class CustomScoreScreen extends Screen {
     private int player;
     private int playernum;
     private String[] playerName;
+    String difficultstr = "";
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -70,6 +71,12 @@ public class CustomScoreScreen extends Screen {
         this.nameCharSelected = new int[playernum];
         this.playerName = new String[playernum];
 
+        switch (gameState.getDifficult()){
+            case EASY -> {difficultstr = "easy";}
+            case NORMAL -> {difficultstr = "normal";}
+            case HARD -> {difficultstr = "hard";}
+        }
+
         for( int i = player ; i < playernum ; i++){
             Player p = gameState.getPlayers().get(i);
 
@@ -83,7 +90,7 @@ public class CustomScoreScreen extends Screen {
             this.playerName[i] = p.getName();
 
             try {
-                this.highScores = Core.getFileManager().loadHighScores();
+                this.highScores = Core.getFileManager().loadHighScores(difficultstr+"scores");
                 if (highScores.size() < MAX_HIGH_SCORE_NUM
                         || highScores.get(highScores.size() - 1).getScore()
                         < this.score[i])
@@ -182,7 +189,7 @@ public class CustomScoreScreen extends Screen {
             highScores.remove(highScores.size() - 1);
 
         try {
-            Core.getFileManager().saveHighScores(highScores);
+            Core.getFileManager().saveHighScores(highScores,difficultstr+"scores");
         } catch (IOException e) {
             logger.warning("Couldn't load high scores!");
         }
@@ -195,7 +202,7 @@ public class CustomScoreScreen extends Screen {
         drawManager.initDrawing(this);
 
         drawManager.drawGameOver(this, this.inputDelay.checkFinished(),
-                this.isNewRecord[player]);
+                this.isNewRecord[player], difficultstr);
         drawManager.drawCenterText(this, playerName[player], (this.getHeight()/5)-10, Color.WHITE);
         drawManager.drawResults(this, this.score[player], this.livesRemaining[player],
                 this.shipsDestroyed[player], (float) this.shipsDestroyed[player]

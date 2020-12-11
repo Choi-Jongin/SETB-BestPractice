@@ -474,8 +474,8 @@ public final class DrawManager {
 	 *            If the score is a new high score.
 	 */
 	public void drawGameOver(final Screen screen, final boolean acceptsInput,
-			final boolean isNewRecord) {
-		String gameOverString = "Game Over";
+			final boolean isNewRecord, String Difficult) {
+		String gameOverString = Difficult+" Game Over";
 		String continueOrExitString =
 				"Press Space to Show recode, Escape to exit";
 
@@ -499,16 +499,20 @@ public final class DrawManager {
 	 * @param screen
 	 *            Screen to draw on.
 	 */
-	public void drawHighScoreMenu(final Screen screen) {
+	public void drawHighScoreMenu(final Screen screen, String difficult) {
 		String highScoreString = "High Scores";
 		String instructionsString = "Press Space to return";
 
 		backBufferGraphics.setColor(Color.GREEN);
 		drawCenteredBigString(screen, highScoreString, screen.getHeight() / 8);
 
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, difficult+" score",
+				screen.getHeight() / 5 + fontRegularMetrics.getHeight()/2);
+
 		backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, instructionsString,
-				screen.getHeight() / 5);
+				screen.getHeight() -  fontRegularMetrics.getHeight()*2);
 	}
 
 	/**

@@ -46,6 +46,8 @@ public class ScoreScreen extends Screen {
 	/** Time between changes in user selection. */
 	private Cooldown selectionCooldown;
 
+	private String difficultstr="";
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 * 
@@ -72,8 +74,14 @@ public class ScoreScreen extends Screen {
 		this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
 		this.selectionCooldown.reset();
 
+		switch (gameState.getDifficult()){
+			case EASY -> {difficultstr = "easy";}
+			case NORMAL -> {difficultstr = "normal";}
+			case HARD -> {difficultstr = "hard";}
+		}
+
 		try {
-			this.highScores = Core.getFileManager().loadHighScores();
+			this.highScores = Core.getFileManager().loadHighScores(difficultstr+"scores");
 			if (highScores.size() < MAX_HIGH_SCORE_NUM
 					|| highScores.get(highScores.size() - 1).getScore()
 					< this.score)
@@ -157,7 +165,7 @@ public class ScoreScreen extends Screen {
 			highScores.remove(highScores.size() - 1);
 
 		try {
-			Core.getFileManager().saveHighScores(highScores);
+			Core.getFileManager().saveHighScores(highScores,difficultstr+"scores");
 		} catch (IOException e) {
 			logger.warning("Couldn't load high scores!");
 		}
@@ -170,7 +178,7 @@ public class ScoreScreen extends Screen {
 		drawManager.initDrawing(this);
 
 		drawManager.drawGameOver(this, this.inputDelay.checkFinished(),
-				this.isNewRecord);
+				this.isNewRecord,difficultstr);
 		drawManager.drawResults(this, this.score, this.livesRemaining,
 				this.shipsDestroyed, (float) this.shipsDestroyed
 						/ this.bulletsShot, this.isNewRecord);

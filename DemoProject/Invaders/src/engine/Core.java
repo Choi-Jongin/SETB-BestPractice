@@ -256,7 +256,7 @@ public final class Core {
                     break;
                 case 3:
                     // High scores.
-                    currentScreen = new HighScoreScreen(width, height, FPS);
+                    currentScreen = new HighScoreScreen(width, height, FPS, difficult);
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                             + " high score screen at " + FPS + " fps.");
                     returnCode = frame.setScreen(currentScreen);
