@@ -1,9 +1,11 @@
 package screen;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import engine.*;
 import entity.*;
@@ -65,6 +67,8 @@ public class GameScreen extends Screen {
 	/** Checks if a bonus life is received. */
 	private boolean bonusLife;
 
+	private Cooldown pauseDelay;
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 * 
@@ -120,6 +124,9 @@ public class GameScreen extends Screen {
 		this.gameStartTime = System.currentTimeMillis();
 		this.inputDelay = Core.getCooldown(INPUT_DELAY);
 		this.inputDelay.reset();
+
+		this.pauseDelay = Core.getCooldown(200);
+		this.pauseDelay.reset();
 	}
 
 	/**
@@ -143,6 +150,21 @@ public class GameScreen extends Screen {
 		super.update();
 
 		if (this.inputDelay.checkFinished() && !this.levelFinished) {
+
+			if (isPause()) {
+				if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE) && pauseDelay.checkFinished()) {
+					setPause(false);
+					this.pauseDelay.reset();
+				}
+				draw();
+				return;
+			} else {
+				if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE) && pauseDelay.checkFinished()) {
+					setPause(true);
+					this.pauseDelay.reset();
+					return;
+				}
+			}
 
 			if (!this.ship.isDestroyed()) {
 				boolean moveRight = inputManager.isKeyDown(KeyEvent.VK_RIGHT)
@@ -242,6 +264,8 @@ public class GameScreen extends Screen {
 					/ 12);
 		}
 
+		if( isPause() )
+			drawManager.drawCenteredBigString(this, "PAUSE", this.height / 2);
 		drawManager.completeDrawing(this);
 	}
 

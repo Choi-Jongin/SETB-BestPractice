@@ -65,6 +65,15 @@ public class HighScoreScreen extends Screen {
 		super.update();
 
 		draw();
+		if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE)
+				&& this.inputDelay.checkFinished()) {
+			highScores.clear();
+			try {
+				Core.getFileManager().saveHighScores(highScores,difficultstr+"scores");
+			} catch (IOException e) {
+				logger.warning("Couldn't load high scores!");
+			}
+		}
 		if (inputManager.isKeyDown(KeyEvent.VK_SPACE)
 				&& this.inputDelay.checkFinished())
 			this.isRunning = false;

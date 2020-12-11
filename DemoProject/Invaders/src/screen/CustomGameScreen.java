@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import engine.*;
 import entity.*;
@@ -68,6 +69,8 @@ public class CustomGameScreen extends Screen {
 
     ArrayList<Player> players;
     CustomGameState.MultiMethod multimethod;
+
+    private Cooldown pauseDelay;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -135,6 +138,9 @@ public class CustomGameScreen extends Screen {
         this.gameStartTime = System.currentTimeMillis();
         this.inputDelay = Core.getCooldown(INPUT_DELAY);
         this.inputDelay.reset();
+
+        this.pauseDelay = Core.getCooldown(200);
+        this.pauseDelay.reset();
     }
 
     /**
@@ -171,6 +177,22 @@ public class CustomGameScreen extends Screen {
                 players.get(1).subtractlive(1);
             }
             ///////////치트 끝//////////
+
+            if (isPause()) {
+                if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE) && pauseDelay.checkFinished()) {
+                    setPause(false);
+                    this.pauseDelay.reset();
+                }
+                draw();
+                return;
+            } else {
+                if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE) && pauseDelay.checkFinished()) {
+                    setPause(true);
+                    this.pauseDelay.reset();
+                    return;
+                }
+            }
+
             for(Player p : players) {
                 if( p.isDie() ) continue;
                 Ship ship = p.getShip();
@@ -273,6 +295,8 @@ public class CustomGameScreen extends Screen {
                     / 12);
         }
 
+        if( isPause() )
+            drawManager.drawCenteredBigString(this, "PAUSE", this.height / 2);
         drawManager.completeDrawing(this);
     }
 
