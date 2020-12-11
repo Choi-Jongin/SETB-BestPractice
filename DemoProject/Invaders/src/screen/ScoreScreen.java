@@ -103,14 +103,14 @@ public class ScoreScreen extends Screen {
 
 		draw();
 		if (this.inputDelay.checkFinished()) {
-			if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE)) {
+			if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE) || inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
 				// Return to main menu.
-				this.returnCode = 1;
+				this.returnCode = -1;
 				this.isRunning = false;
 				if (this.isNewRecord)
 					saveScore();
 			} else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
-				// Play again.
+				// ShowHigh.
 				this.returnCode = 2;
 				this.isRunning = false;
 				if (this.isNewRecord)
