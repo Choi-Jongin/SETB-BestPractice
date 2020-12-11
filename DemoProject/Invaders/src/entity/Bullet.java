@@ -19,6 +19,19 @@ public class Bullet extends Entity {
 	private int speed;
 	private int player;
 
+
+	Entity shooter;
+
+	public boolean isEnemy() {
+		return isEnemy;
+	}
+
+	public void setEnemy(boolean enemy) {
+		isEnemy = enemy;
+	}
+
+	boolean isEnemy;
+
 	/**
 	 * Constructor, establishes the bullet's properties.
 	 * 
@@ -30,9 +43,10 @@ public class Bullet extends Entity {
 	 *            Speed of the bullet, positive or negative depending on
 	 *            direction - positive is down.
 	 */
-	public Bullet(final int positionX, final int positionY, final int speed, final int player) {
+	public Bullet(final int positionX, final int positionY, final int speed, Entity shooter, boolean isEnemy) {
 		super(positionX, positionY, 3 * 2, 5 * 2, Color.WHITE);
-		
+		this.shooter = shooter;
+		this.isEnemy = isEnemy;
 		this.speed = speed;
 		this.player = player;
 		setSprite();
@@ -73,13 +87,12 @@ public class Bullet extends Entity {
 	public final int getSpeed() {
 		return this.speed;
 	}
-	
-	public final void setPlayer(final int player) {
-		this.player = player;
+  
+	public Entity getShooter() {
+		return shooter;
 	}
-	
-	public final int getPlayer() {
-		return this.player;
+
+	public void setShooter(Ship shooter) {
+		this.shooter = shooter;
 	}
-	
 }

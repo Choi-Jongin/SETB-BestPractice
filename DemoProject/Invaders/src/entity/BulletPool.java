@@ -35,7 +35,7 @@ public final class BulletPool {
 	 * @return Requested bullet.
 	 */
 	public static Bullet getBullet(final int positionX,
-			final int positionY, final int speed, final Ship ship) {
+			final int positionY, final int speed, Entity shooter, boolean isEnemy) {
 		Bullet bullet;
 		if (!pool.isEmpty()) {
 			bullet = pool.iterator().next();
@@ -46,7 +46,7 @@ public final class BulletPool {
 			bullet.setSprite();
 			bullet.setPlayer(ship.getPlayer());
 		} else {
-			bullet = new Bullet(positionX, positionY, speed, ship.getPlayer());
+			bullet = new Bullet(positionX, positionY, speed, shooter, isEnemy);
 			bullet.setPositionX(positionX - bullet.getWidth() / 2);
 		}
 		return bullet;

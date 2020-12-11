@@ -146,11 +146,8 @@ public final class Core {
         gameSettings.add(SETTINGS_LEVEL_6);
         gameSettings.add(SETTINGS_LEVEL_7);
 
-        GameState gameState;
-
         int returnCode = -1;
         do {
-            gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
 
             switch (returnCode) {
                 case -1:
@@ -161,8 +158,11 @@ public final class Core {
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing title screen.");
                     break;
+
                 case 0:
                     // Game & score.
+
+                    GameState gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
                     gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
                     do {
                         // One extra live every few levels.
@@ -201,46 +201,42 @@ public final class Core {
                     break;
                 case 1:
                     // CustomGame & score.
+                    CustomGameState customGameState;
                     int playernum = 2;
                     ArrayList<Player> players = new ArrayList<Player>();
                     int input[][] = new int[playernum][];
                     input[0] = new int[]{KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_SPACE};
                     input[1] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_ENTER};
                     for( int i = 0 ; i < playernum ; i++)
-                        players.add( new Player("Player"+i, 0,MAX_LIVES, input[i]));
+                        players.add( new Player("Player"+(i+1), 0,MAX_LIVES, input[i]));
 
-
-
-                    gameState = new CustomGameState(1,  players, CustomGameState.MultiMethod.local);
+                    customGameState = new CustomGameState(1,  players, CustomGameState.MultiMethod.local);
 
                     do {
                         // One extra live every few levels.
-                        boolean bonusLife = gameState.getLevel()
+                        boolean bonusLife = customGameState.getLevel()
                                 % EXTRA_LIFE_FRECUENCY == 0
-                                && gameState.getLivesRemaining() < MAX_LIVES;
+                                && customGameState.getMinLives() < MAX_LIVES;
 
-                        currentScreen = new CustomGameScreen(gameState,
-                                gameSettings.get(gameState.getLevel() - 1),
-                                bonusLife, width, height, FPS,2);
+                        currentScreen = new CustomGameScreen(customGameState,
+                                gameSettings.get(customGameState.getLevel() - 1),
+                                bonusLife,MAX_LIVES, width, height, FPS,2);
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " game screen at " + FPS + " fps.");
                         frame.setScreen(currentScreen);
                         LOGGER.info("Closing game screen.");
 
-                        gameState = (CustomGameState)((CustomGameScreen) currentScreen).getGameState();
+                        customGameState = ((CustomGameScreen) currentScreen).getGameState();
 
-                        gameState = new CustomGameState(gameState.getLevel() + 1,((CustomGameState)gameState).getPlayers(), ((CustomGameState)gameState).getMethod() );
+                        customGameState = new CustomGameState(customGameState.getLevel() + 1, customGameState.getPlayers(), customGameState.getMethod() );
 
-                    } while (gameState.getLivesRemaining() > 0
-                            && gameState.getLevel() <= NUM_LEVELS);
+                    } while (customGameState.getMaxLives() > 0
+                            && customGameState.getLevel() <= NUM_LEVELS);
 
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                             + " score screen at " + FPS + " fps, with a score of "
-                            + gameState.getScore() + ", "
-                            + gameState.getLivesRemaining() + " lives remaining, "
-                            + gameState.getBulletsShot() + " bullets shot and "
-                            + gameState.getShipsDestroyed() + " ships destroyed.");
-                    currentScreen = new ScoreScreen(width, height, FPS, gameState);
+                            + customGameState.toString() );
+                    currentScreen = new CustomScoreScreen(width, height, FPS, customGameState);
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing score screen.");
                     break;

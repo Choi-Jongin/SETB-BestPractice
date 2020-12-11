@@ -29,6 +29,16 @@ public class Ship extends Entity {
 	
 	private int player;
 
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	Player player;
+
 	/**
 	 * Constructor, establishes the ship's properties.
 	 * 
@@ -79,7 +89,7 @@ public class Ship extends Entity {
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			bullets.add(BulletPool.getBullet(positionX + this.width / 2,
-					positionY, BULLET_SPEED, this));
+					positionY, BULLET_SPEED, this, false));
 			return true;
 		}
 		return false;

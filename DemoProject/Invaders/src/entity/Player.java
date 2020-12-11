@@ -8,7 +8,7 @@ import screen.Screen;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class Player {
+public class Player{
 
     public static Color[] color = new Color[]{Color.GREEN, Color.CYAN};
 
@@ -163,4 +163,8 @@ public class Player {
 
     public boolean isDie(){return die;}
     public void Die(){die = true;}
+
+    public void setDie(boolean die) {
+        this.die = die;
+    }
 }

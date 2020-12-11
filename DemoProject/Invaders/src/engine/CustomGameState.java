@@ -10,27 +10,49 @@ import java.util.ArrayList;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  *
  */
-public class CustomGameState extends GameState{
+public class CustomGameState{
 
     public enum MultiMethod{local, p2p};
-    private int playernum;
+
+    private int level;
     private MultiMethod method;
 
     //플레이어
     ArrayList<Player> players;
 
     public CustomGameState(final int level, ArrayList<Player> players, MultiMethod method) {
-        super(level,0,0,0,0 );
+        this.level  = level;
         this.players = players;
         this.method =  method;
     }
 
-    public int getPlayernum() {
-        return playernum;
+    public int getLevel() {
+        return level;
     }
 
-    public void setPlayernum(int playernum) {
-        this.playernum = playernum;
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getMaxLives(){
+        int lives = 0;
+        for( Player p : players) {
+            if (p.getLives() > lives)
+                lives = p.getLives();
+        }
+        return lives;
+    }
+    public int getMinLives(){
+        int lives = 999;
+        for( Player p : players) {
+            if (p.getLives() < lives)
+                lives = p.getLives();
+        }
+        return lives;
+    }
+
+    public int getPlayernum() {
+        return players.size();
     }
 
     public MultiMethod getMethod() {
@@ -47,6 +69,19 @@ public class CustomGameState extends GameState{
 
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
+    }
+
+    @Override
+    public String toString(){
+        String str = "";
+        for( Player p : players){
+            str += "["+p.getName() +": ";
+            str += ""+p.getLives() +" lives remaining, ";
+            str += ""+p.getBulletsShot() +" bullets shot and ";
+            str += ""+p.getShipsDestroyed() +" ships destroyed.]\n";
+        }
+
+        return str;
     }
 
 
