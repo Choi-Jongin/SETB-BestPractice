@@ -6,10 +6,8 @@ package engine;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */
-public class GameState {
+public class GameState extends IGameState{
 
-	/** Current game level. */
-	private int level;
 	/** Current score. */
 	private int score;
 	/** Lives currently remaining. */
@@ -36,18 +34,11 @@ public class GameState {
 	public GameState(final int level, final int score,
 			final int livesRemaining, final int bulletsShot,
 			final int shipsDestroyed) {
-		this.level = level;
+		super(level);
 		this.score = score;
 		this.livesRemaining = livesRemaining;
 		this.bulletsShot = bulletsShot;
 		this.shipsDestroyed = shipsDestroyed;
-	}
-
-	/**
-	 * @return the level
-	 */
-	public final int getLevel() {
-		return level;
 	}
 
 	/**

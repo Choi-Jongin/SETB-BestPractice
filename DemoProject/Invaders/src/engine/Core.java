@@ -205,12 +205,12 @@ public final class Core {
                     int playernum = 2;
                     ArrayList<Player> players = new ArrayList<Player>();
                     int input[][] = new int[playernum][];
-                    input[0] = new int[]{KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_SPACE};
-                    input[1] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_ENTER};
+                    input[0] = new int[]{KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_W};
+                    input[1] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_UP};
                     for( int i = 0 ; i < playernum ; i++)
                         players.add( new Player("Player"+(i+1), 0,MAX_LIVES, input[i]));
 
-                    customGameState = new CustomGameState(1,  players, CustomGameState.MultiMethod.local);
+                    customGameState = new CustomGameState(1,  players, CustomGameState.MultiMethod.LOCAL);
 
                     do {
                         // One extra live every few levels.

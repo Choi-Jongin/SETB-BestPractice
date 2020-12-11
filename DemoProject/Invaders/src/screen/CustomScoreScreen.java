@@ -3,6 +3,7 @@ package screen;
 import engine.*;
 import entity.Player;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Collections;
@@ -40,6 +41,7 @@ public class CustomScoreScreen extends Screen {
 
     private int player;
     private int playernum;
+    private String[] playerName;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -66,6 +68,7 @@ public class CustomScoreScreen extends Screen {
         this.isNewRecord = new boolean[playernum];
         this.name = new char[playernum][3];
         this.nameCharSelected = new int[playernum];
+        this.playerName = new String[playernum];
 
         for( int i = player ; i < playernum ; i++){
             Player p = gameState.getPlayers().get(i);
@@ -77,6 +80,7 @@ public class CustomScoreScreen extends Screen {
             this.isNewRecord[i] = false;
             this.name[i] = "AAA".toCharArray();
             this.nameCharSelected[i] = 0;
+            this.playerName[i] = p.getName();
 
             try {
                 this.highScores = Core.getFileManager().loadHighScores();
@@ -147,20 +151,22 @@ public class CustomScoreScreen extends Screen {
                 // Return to main menu.
                 if (this.isNewRecord[player])
                     saveScore();
-                if (++player > playernum) {
+                if (++player >= playernum) {
                     this.returnCode = -1;
                     this.isRunning = false;
                 }
+
+                this.inputDelay.reset();
             } else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
                 // recode.
                 if (this.isNewRecord[player])
                     saveScore();
-                if (++player > playernum) {
+                if (++player >= playernum) {
                     this.returnCode = 2;
                     this.isRunning = false;
                 }
 
-
+                this.inputDelay.reset();
             }
         }
 
@@ -174,18 +180,6 @@ public class CustomScoreScreen extends Screen {
         Collections.sort(highScores);
         if (highScores.size() > MAX_HIGH_SCORE_NUM)
             highScores.remove(highScores.size() - 1);
-
-        for( int i = player+1 ; i < playernum ; i++) {
-            try {
-                this.highScores = Core.getFileManager().loadHighScores();
-                if (highScores.size() < MAX_HIGH_SCORE_NUM
-                        || highScores.get(highScores.size() - 1).getScore()
-                        < this.score[i])
-                    this.isNewRecord[i] = true;
-            } catch (IOException e) {
-                logger.warning("Couldn't load high scores!");
-            }
-        }
 
         try {
             Core.getFileManager().saveHighScores(highScores);
@@ -202,6 +196,7 @@ public class CustomScoreScreen extends Screen {
 
         drawManager.drawGameOver(this, this.inputDelay.checkFinished(),
                 this.isNewRecord[player]);
+        drawManager.drawCenterText(this, playerName[player], (this.getHeight()/5)-10, Color.WHITE);
         drawManager.drawResults(this, this.score[player], this.livesRemaining[player],
                 this.shipsDestroyed[player], (float) this.shipsDestroyed[player]
                         / this.bulletsShot[player], this.isNewRecord[player]);

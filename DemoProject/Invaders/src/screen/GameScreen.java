@@ -258,7 +258,7 @@ public class GameScreen extends Screen {
 				recyclable.add(bullet);
 		}
 		this.bullets.removeAll(recyclable);
-		BulletPool.recycle(recyclable);
+		//BulletPool.recycle(recyclable);
 	}
 
 	/**

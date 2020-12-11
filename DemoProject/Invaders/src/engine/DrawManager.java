@@ -250,7 +250,6 @@ public final class DrawManager {
 		String scoreString = String.format("%04d", score);
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 60, 25+25*player);
 	}
-
 	/**
 	 * Draws number of remaining lives on screen.
 	 * 
@@ -346,7 +345,10 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, menuStrings[selection], screen.getHeight() / 3 *2 + fontRegularMetrics.getHeight()*selection);
 	}
-
+	public void drawCenterText(final Screen screen, String text, int height, Color color ) {
+		backBufferGraphics.setColor(color);
+		drawCenteredRegularString(screen, text, height);
+	}
 	/**
 	 * Draws game results.
 	 * 

@@ -10,9 +10,9 @@ import java.util.ArrayList;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  *
  */
-public class CustomGameState{
+public class CustomGameState extends IGameState{
 
-    public enum MultiMethod{local, p2p};
+    public enum MultiMethod{LOCAL, P2P};
 
     private int level;
     private MultiMethod method;
@@ -21,13 +21,9 @@ public class CustomGameState{
     ArrayList<Player> players;
 
     public CustomGameState(final int level, ArrayList<Player> players, MultiMethod method) {
-        this.level  = level;
+        super(level);
         this.players = players;
         this.method =  method;
-    }
-
-    public int getLevel() {
-        return level;
     }
 
     public void setLevel(int level) {

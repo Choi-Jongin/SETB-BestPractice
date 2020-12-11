@@ -37,7 +37,8 @@ public final class BulletPool {
 	public static Bullet getBullet(final int positionX,
 			final int positionY, final int speed, Entity shooter, boolean isEnemy) {
 		Bullet bullet;
-		if (!pool.isEmpty()) {
+		//pool 기능 지움
+		if ( false && !pool.isEmpty()) {
 			bullet = pool.iterator().next();
 			pool.remove(bullet);
 			bullet.setPositionX(positionX - bullet.getWidth() / 2);

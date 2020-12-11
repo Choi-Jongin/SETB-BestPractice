@@ -158,10 +158,20 @@ public class CustomGameScreen extends Screen {
         super.update();
 
         if (this.inputDelay.checkFinished() && !this.levelFinished) {
+            //////////치트 영역///////////
 
+            if (inputManager.isKeyDown(KeyEvent.VK_1)) {
+                players.get(0).addScore(100);
+                players.get(1).addScore(100);
+            }
+            if (inputManager.isKeyDown(KeyEvent.VK_2)) {
+                players.get(0).subtractlive(1);
+                players.get(1).subtractlive(1);
+            }
+            ///////////치트 끝//////////
             for(Player p : players) {
-                Ship ship = p.getShip();
                 if( p.isDie() ) continue;
+                Ship ship = p.getShip();
                 if (!ship.isDestroyed()) {
                     boolean isRightBorder = ship.getPositionX()
                             + ship.getWidth() + ship.getSpeed() > this.width - 1;
@@ -276,7 +286,7 @@ public class CustomGameScreen extends Screen {
                 recyclable.add(bullet);
         }
         this.bullets.removeAll(recyclable);
-        BulletPool.recycle(recyclable);
+        //BulletPool.recycle(recyclable);
     }
 
     /**
@@ -287,6 +297,7 @@ public class CustomGameScreen extends Screen {
 
 
         for (Bullet bullet : this.bullets) {
+            //몹 발사
             if (bullet.isEnemy()) {
                 for (Player p : players) {
                     Ship ship = p.getShip();
@@ -301,7 +312,7 @@ public class CustomGameScreen extends Screen {
                         }
                     }
                 }
-            } else {
+            } else { //플레이어 발사
                 for (EnemyShip enemyShip : this.enemyShipFormation) {
                     if (!enemyShip.isDestroyed()
                             && checkCollision(bullet, enemyShip)) {
