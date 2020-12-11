@@ -1,37 +1,47 @@
-[INFO|1:38:28]: Started loading resources. 
-[FINE|1:38:28]: Sprite Ship loaded. 
-[FINE|1:38:28]: Sprite ShipDestroyed loaded. 
-[FINE|1:38:28]: Sprite Bullet loaded. 
-[FINE|1:38:28]: Sprite EnemyBullet loaded. 
-[FINE|1:38:28]: Sprite EnemyShipA1 loaded. 
-[FINE|1:38:28]: Sprite EnemyShipA2 loaded. 
-[FINE|1:38:28]: Sprite EnemyShipB1 loaded. 
-[FINE|1:38:28]: Sprite EnemyShipB2 loaded. 
-[FINE|1:38:28]: Sprite EnemyShipC1 loaded. 
-[FINE|1:38:28]: Sprite EnemyShipC2 loaded. 
-[FINE|1:38:28]: Sprite EnemyShipSpecial loaded. 
-[FINE|1:38:28]: Sprite Explosion loaded. 
-[INFO|1:38:28]: Finished loading the sprites. 
-[INFO|1:38:28]: Finished loading the fonts. 
-[INFO|1:38:28]: Starting 448x520 title screen at 60 fps. 
-[INFO|1:38:30]: Closing title screen. 
-[INFO|1:38:30]: Starting 448x520 high score screen at 60 fps. 
-[INFO|1:38:33]: Closing high score screen. 
-[INFO|1:38:33]: Starting 448x520 title screen at 60 fps. 
-[INFO|1:38:36]: Closing title screen. 
-[INFO|1:38:36]: Starting 448x520 game screen at 60 fps. 
-[INFO|1:38:36]: Initializing 5x4 ship formation in (20,100) 
-[INFO|1:38:42]: Destroyed ship in (4,3) 
-[INFO|1:38:43]: Removed enemy 3 from column 4 
-[INFO|1:38:44]: Destroyed ship in (3,3) 
-[INFO|1:38:44]: Removed enemy 3 from column 3 
-[INFO|1:38:45]: Destroyed ship in (2,3) 
-[INFO|1:38:46]: Removed enemy 3 from column 2 
-[INFO|1:38:46]: Destroyed ship in (2,2) 
-[INFO|1:38:46]: Removed enemy 2 from column 2 
-[INFO|1:38:47]: Destroyed ship in (1,3) 
-[INFO|1:38:47]: A special ship appears 
-[INFO|1:38:48]: Removed enemy 3 from column 1 
-[INFO|1:38:49]: Destroyed ship in (0,3) 
-[INFO|1:38:49]: Removed enemy 3 from column 0 
-[INFO|1:38:51]: The special ship has escaped 
+[INFO|1:59:25]: Started loading resources. 
+[FINE|1:59:25]: Sprite Ship loaded. 
+[FINE|1:59:25]: Sprite ShipDestroyed loaded. 
+[FINE|1:59:25]: Sprite Bullet loaded. 
+[FINE|1:59:25]: Sprite EnemyBullet loaded. 
+[FINE|1:59:25]: Sprite EnemyShipA1 loaded. 
+[FINE|1:59:25]: Sprite EnemyShipA2 loaded. 
+[FINE|1:59:25]: Sprite EnemyShipB1 loaded. 
+[FINE|1:59:25]: Sprite EnemyShipB2 loaded. 
+[FINE|1:59:25]: Sprite EnemyShipC1 loaded. 
+[FINE|1:59:25]: Sprite EnemyShipC2 loaded. 
+[FINE|1:59:25]: Sprite EnemyShipSpecial loaded. 
+[FINE|1:59:25]: Sprite Explosion loaded. 
+[INFO|1:59:25]: Finished loading the sprites. 
+[INFO|1:59:25]: Finished loading the fonts. 
+[INFO|1:59:25]: Starting 448x520 title screen at 60 fps. 
+[INFO|1:59:27]: Closing title screen. 
+[INFO|1:59:27]: Starting 448x520 high score screen at 60 fps. 
+[INFO|1:59:29]: Closing high score screen. 
+[INFO|1:59:29]: Starting 448x520 title screen at 60 fps. 
+[INFO|1:59:30]: Closing title screen. 
+[INFO|1:59:30]: Starting 448x520 game screen at 60 fps. 
+[INFO|1:59:30]: Initializing 5x4 ship formation in (20,100) 
+[INFO|1:59:38]: Destroyed ship in (4,3) 
+[INFO|1:59:39]: Removed enemy 3 from column 4 
+[INFO|1:59:39]: Destroyed ship in (4,2) 
+[INFO|1:59:40]: Removed enemy 2 from column 4 
+[INFO|1:59:46]: Hit on player ship, 0 lives remaining. 
+[INFO|1:59:47]: Screen cleared with a score of -58 
+[INFO|1:59:47]: Closing game screen. 
+[INFO|1:59:47]: Starting 448x520 score screen at 60 fps, with a score of -58, 0 lives remaining, 4 bullets shot and 2 ships destroyed. 
+[INFO|1:59:47]: Loading user high scores. 
+[INFO|1:59:50]: Saving user high scores. 
+[INFO|1:59:50]: Closing score screen. 
+[INFO|1:59:50]: Loading user high scores. 
+[INFO|1:59:50]: Starting 448x520 high score screen at 60 fps. 
+[INFO|1:59:52]: Closing high score screen. 
+[INFO|1:59:52]: Starting 448x520 title screen at 60 fps. 
+[INFO|1:59:53]: Closing title screen. 
+[INFO|1:59:53]: Starting 448x520 high score screen at 60 fps. 
+[INFO|1:59:55]: Closing high score screen. 
+[INFO|1:59:55]: Starting 448x520 title screen at 60 fps. 
+[INFO|1:59:57]: Closing title screen. 
+[INFO|1:59:57]: Starting 448x520 game screen at 60 fps. 
+[INFO|1:59:57]: Initializing 5x4 ship formation in (20,100) 
+[INFO|2:00:06]: Destroyed ship in (4,2) 
+[INFO|2:00:07]: Removed enemy 2 from column 4 

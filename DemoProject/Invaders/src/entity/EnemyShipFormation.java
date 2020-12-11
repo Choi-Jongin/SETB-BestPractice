@@ -7,12 +7,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import engine.*;
 import screen.Screen;
-import engine.Cooldown;
-import engine.Core;
-import engine.DrawManager;
 import engine.DrawManager.SpriteType;
-import engine.GameSettings;
 
 /**
  * Groups enemy ships into a formation that moves together.
@@ -95,6 +92,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	/** Number of not destroyed ships. */
 	private int shipCount;
 
+	private IGameState.Difficult difficult;
+
 	/** Directions the formation can move. */
 	private enum Direction {
 		/** Movement to the right side of the screen. */
@@ -123,6 +122,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		this.shootingVariance = (int) (gameSettings.getShootingFrecuency()
 				* SHOOTING_VARIANCE);
 		this.baseSpeed = gameSettings.getBaseSpeed();
+		this.difficult = gameSettings.getDifficult();
 		this.movementSpeed = this.baseSpeed;
 		this.positionX = INIT_POS_X;
 		this.positionY = INIT_POS_Y;
@@ -338,7 +338,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			bullets.add(BulletPool.getBullet(shooter.getPositionX()
-					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, shooter, true));
+					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED + getDifficultBulletSpeed(), shooter, true));
 		}
 	}
 
@@ -425,5 +425,20 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 */
 	public final boolean isEmpty() {
 		return this.shipCount <= 0;
+	}
+
+	private int getDifficultBulletSpeed(){
+		switch (difficult){
+			case EASY -> {
+				return -1;
+			}
+			case NORMAL -> {
+				return 0;
+			}
+			case HARD -> {
+				return +2;
+			}
+		}
+		return 0;
 	}
 }

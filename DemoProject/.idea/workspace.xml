@@ -20,33 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="721bb949-8eed-4dce-8018-2433ac848f35" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Invaders/src/screen/SettingScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/Core.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/Core.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/CustomGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/CustomGameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/DrawManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/DrawManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/GameSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/GameSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/GameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/IGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/IGameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/screen/CustomGameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/CustomGameScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/screen/CustomScoreScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/CustomScoreScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/screen/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/GameScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/screen/PlaySettingScreen.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/screen/ScoreScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/ScoreScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/screen/TitleScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/TitleScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Invaders/src/entity/EnemyShipFormation.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/entity/EnemyShipFormation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log" beforeDir="false" afterPath="$PROJECT_DIR$/log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/engine/Core.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/engine/Core.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/engine/CustomGameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/engine/CustomGameState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/engine/DrawManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/engine/DrawManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/engine/GameSettings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/engine/GameSettings.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/engine/GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/engine/GameState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/engine/IGameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/engine/IGameState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/screen/CustomGameScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/screen/CustomGameScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/screen/CustomScoreScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/screen/CustomScoreScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/screen/GameScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/screen/GameScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/screen/PlaySettingScreen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/screen/ScoreScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/screen/ScoreScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/screen/TitleScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/screen/TitleScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log.lck" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +97,7 @@
       <workItem from="1607661309237" duration="19154000" />
       <workItem from="1607685966827" duration="13000" />
       <workItem from="1607686686211" duration="8687000" />
-      <workItem from="1607696685350" duration="7937000" />
+      <workItem from="1607696685350" duration="9178000" />
     </task>
     <servers />
   </component>
@@ -152,22 +129,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1607685978093" />
-    <state width="1877" height="235" key="GridCell.Tab.0.bottom" timestamp="1607704399671">
+    <state width="1877" height="235" key="GridCell.Tab.0.bottom" timestamp="1607705696449">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="235" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607704399671" />
-    <state width="1877" height="235" key="GridCell.Tab.0.center" timestamp="1607704399671">
+    <state width="1877" height="235" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607705696449" />
+    <state width="1877" height="235" key="GridCell.Tab.0.center" timestamp="1607705696449">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="235" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607704399671" />
-    <state width="1877" height="235" key="GridCell.Tab.0.left" timestamp="1607704399671">
+    <state width="1877" height="235" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607705696449" />
+    <state width="1877" height="235" key="GridCell.Tab.0.left" timestamp="1607705696449">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="235" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607704399671" />
-    <state width="1877" height="235" key="GridCell.Tab.0.right" timestamp="1607704399671">
+    <state width="1877" height="235" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607705696449" />
+    <state width="1877" height="235" key="GridCell.Tab.0.right" timestamp="1607705696449">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="235" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607704399671" />
+    <state width="1877" height="235" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607705696449" />
     <state width="1877" height="179" key="GridCell.Tab.1.bottom" timestamp="1607703578578">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -194,20 +171,6 @@
     <state x="803" y="275" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607669948750" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Invaders/src/screen/SettingScreen.java</url>
-          <line>136</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Invaders/src/screen/SettingScreen.java</url>
-          <line>141</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="entity.Bullet" memberName="shooter" />
