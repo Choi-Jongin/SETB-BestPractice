@@ -4,7 +4,7 @@
 Process Management - Scrum
 Version Control - Git
 IDE - dependent on Developers
-Quality Management - SONARCUBE
+Quality Management - SONARQUBE
 Issue management - Jira
-CI/CD - Jenkins (Using SONARCUBE for analyzing source codes)
+CI/CD - Jenkins (Using SONARQUBE for analyzing source codes)
 ```
