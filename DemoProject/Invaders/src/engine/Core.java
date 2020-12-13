@@ -208,13 +208,13 @@ public final class Core {
                     break;
                 case 1:
                     // 2P CustomGame & score.
-                    playernum = 16;
+                    playernum = 2;
                     input = new int[playernum][];
                     input[0] = new int[]{KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_W};
                     input[1] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_UP};
-                    input[2] = new int[]{KeyEvent.VK_NUMPAD3, KeyEvent.VK_NUMPAD1, KeyEvent.VK_NUMPAD5};
-                    for( int i = 3 ; i < playernum ;++i)
-                        input[i] = new int[]{KeyEvent.VK_NUMPAD3, KeyEvent.VK_NUMPAD1, KeyEvent.VK_NUMPAD5};
+//                    input[2] = new int[]{KeyEvent.VK_NUMPAD3, KeyEvent.VK_NUMPAD1, KeyEvent.VK_NUMPAD5};
+//                    for( int i = 3 ; i < playernum ;++i)
+//                        input[i] = new int[]{KeyEvent.VK_NUMPAD3, KeyEvent.VK_NUMPAD1, KeyEvent.VK_NUMPAD5};
 
                     for( int i = 0 ; i < playernum ; i++)
                         players.add( new Player("Player"+(i+1), 0,MAX_LIVES, input[i]));
@@ -251,15 +251,15 @@ public final class Core {
                     LOGGER.info("Closing score screen.");
                     break;
                 case 2:
-                    // High scores.
+                    // Settings.
                     currentScreen = new SettingScreen(width, height, FPS, difficult);
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-                            + " high score screen at " + FPS + " fps.");
+                            + " Settings Screen at " + FPS + " fps.");
                     returnCode = frame.setScreen(currentScreen);
                     difficult = ((SettingScreen)currentScreen).getDifficult();
                     for( GameSettings gs : gameSettings)
                                gs.setDifficult(difficult);
-                    LOGGER.info("Closing high score screen.");
+                    LOGGER.info("Closing Settings Screen screen.");
                     break;
                 case 3:
                     // High scores.
@@ -271,6 +271,33 @@ public final class Core {
                     LOGGER.info("Closing high score screen.");
 
                     break;
+                case 4: /*EXIT*/ break;
+                case 5:
+                    int ONSselect = 0;  //ONLINE SETTING SELECTION
+                    currentScreen = new OnlineSettingScreen(width, height, FPS);
+                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                            + " Online Setting screen at " + FPS + " fps.");
+                    returnCode = frame.setScreen(currentScreen);
+                    LOGGER.info("Closing Online Setting screen.");
+                    ONSselect = ((OnlineSettingScreen)currentScreen).getSelectitem();
+                    switch (ONSselect){
+                        case 0 -> {
+                            LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                    + " Create Room at " + FPS + " fps");
+                            currentScreen = new CreateRoomScreen(width, height, FPS);
+                            returnCode = frame.setScreen(currentScreen);
+                            LOGGER.info("Closing Create Room screen.");
+                        }
+                        case 1 -> {
+                            LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                    + " Connect Room at " + FPS + " fps");
+                            currentScreen = new ConnectRoomScreen(width, height, FPS);
+                            returnCode = frame.setScreen(currentScreen);
+                            LOGGER.info("Closing Connect Room screen.");
+                        }
+                    }
+                    break;
+
                 default:
                     break;
             }

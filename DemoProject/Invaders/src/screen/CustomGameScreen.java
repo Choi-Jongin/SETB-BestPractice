@@ -316,4 +316,7 @@ public class CustomGameScreen extends IGameScreen {
         return true;
     }
 
+    boolean isP2P(){
+        return (multimethod == CustomGameState.MultiMethod.P2P);
+    }
 }

@@ -15,11 +15,13 @@ public class TitleScreen extends Screen {
 
 	/** Milliseconds between changes in user selection. */
 	private static final int SELECTION_TIME = 200;
-	
+	private static final int MAX_SELECTNUM = 5;
+
 	/** Time between changes in user selection. */
 	private Cooldown selectionCooldown;
-	private int maxselect = 4;
 
+
+	private int selectItem = 0;
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 * 
@@ -34,7 +36,7 @@ public class TitleScreen extends Screen {
 		super(width, height, fps);
 
 		// Defaults to play.
-		this.returnCode = 0;
+		selectItem = 0;
 		this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
 		this.selectionCooldown.reset();
 	}
@@ -67,8 +69,17 @@ public class TitleScreen extends Screen {
 				nextMenuItem();
 				this.selectionCooldown.reset();
 			}
-			if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
+			if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+				switch (selectItem){
+					case 0: this.returnCode = 0; break;
+					case 1: this.returnCode = 1; break;
+					case 2: this.returnCode = 5; break;
+					case 3: this.returnCode = 2; break;
+					case 4: this.returnCode = 3; break;
+					case 5: this.returnCode = 4; break;
+				}
 				this.isRunning = false;
+			}
 		}
 	}
 
@@ -76,20 +87,20 @@ public class TitleScreen extends Screen {
 	 * Shifts the focus to the next menu item.
 	 */
 	private void nextMenuItem() {
-		if (this.returnCode == maxselect)
-			this.returnCode = 0;
+		if (this.selectItem == MAX_SELECTNUM)
+			this.selectItem = 0;
 		else
-			this.returnCode++;
+			this.selectItem++;
 	}
 
 	/**
 	 * Shifts the focus to the previous menu item.
 	 */
 	private void previousMenuItem() {
-		if (this.returnCode == 0)
-			this.returnCode = maxselect;
+		if (this.selectItem == 0)
+			this.selectItem = MAX_SELECTNUM;
 		else
-			this.returnCode--;
+			this.selectItem--;
 	}
 
 	/**
@@ -99,7 +110,15 @@ public class TitleScreen extends Screen {
 		drawManager.initDrawing(this);
 
 		drawManager.drawTitle(this);
-		drawManager.drawMenu(this, this.returnCode);
+		drawManager.drawMenu(this, selectItem);
 		drawManager.completeDrawing(this);
+	}
+
+	public int getSelectItem() {
+		return selectItem;
+	}
+
+	public void setSelectItem(int selectItem) {
+		this.selectItem = selectItem;
 	}
 }
