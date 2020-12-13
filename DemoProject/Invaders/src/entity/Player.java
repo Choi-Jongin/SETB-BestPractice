@@ -38,6 +38,11 @@ public class Player{
 
     private boolean die;
 
+    public boolean isClient() {
+        return isClient;
+    }
+    private boolean isClient = false;
+
     public String getName() {
         return name;
     }
@@ -57,10 +62,14 @@ public class Player{
         this("Player1",0,3,new int[]{KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_SPACE});
     }
     public Player(String name, int score, int lives, int[] inputs){
+        this(name,score,lives,inputs,false);
+    }
+    public Player(String name, int score, int lives, int[] inputs, boolean client){
         this.name = name;
         this.score = score;
         this.lives = lives;
         this.inputs = inputs;
+        this.isClient = client;
         die = false;
     }
     public void Init(GameScreen screen, Ship ship, int score, int lives, int[] inputs){

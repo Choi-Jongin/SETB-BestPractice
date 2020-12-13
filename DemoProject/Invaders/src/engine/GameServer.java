@@ -19,8 +19,8 @@ public class GameServer {
     private ServerSocket serverSocket;
     private ArrayList<Socket> connections = new ArrayList<Socket>();
 
-    BufferedReader in = null;
-    BufferedWriter out = null;
+//    BufferedReader in = null;
+//    BufferedWriter out = null;
 
     ObjectInputStream ois = null;
     ObjectOutputStream oos = null;
@@ -66,10 +66,10 @@ public class GameServer {
                     System.out.println("[연결 수락: " + socket.getRemoteSocketAddress() + ": " + Thread.currentThread().getName() + "]");
                     input = socket.getInputStream();
                     output = socket.getOutputStream();
-                    ois = new ObjectInputStream(input);
                     oos = new ObjectOutputStream(output);
-                    in = new BufferedReader(new InputStreamReader(input));
-                    out = new BufferedWriter(new OutputStreamWriter(output));
+                    ois = new ObjectInputStream(input);
+//                    in = new BufferedReader(new InputStreamReader(input));
+//                    out = new BufferedWriter(new OutputStreamWriter(output));
                     roomPacket = (RoomPacket) ois.readObject();
                     if( roomPacket.getPassword().compareTo(password) != 0) {
                         System.out.println("비밀번호 미일치");
@@ -78,6 +78,8 @@ public class GameServer {
                     }
                     System.out.println("비밀번호 일치");
                     room.setRoom(roomPacket);
+                    oos.writeObject(room);
+                    oos.flush();
                     // 클라이언트 접속 요청 시 객체 하나씩 생성해서 저장
                     connections.add(socket);
                     waiting = false;
@@ -100,30 +102,30 @@ public class GameServer {
         return connections.size() != 0;
     }
 
-    public String read(){
+    public void sendObject( Object o){
+        try {
+            oos.writeObject(o);
+            oos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-        if( hasConn() ){
-
-            String re = "";
-            try {
-                Socket socket = connections.get(0);
-                if(socket.isClosed()){
-                    connections.remove(socket);
-                    return null;
-                }
-
-                byte inbyte[] = new byte[100];
-                int len = input.read(inbyte);
-                //return new String(inbyte,0,len,"UTF-8");
-                return in.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+    public Object readObject() {
+        try {
+            Object o = ois.readObject();
+            if( o.toString().compareTo("0") != 0)
+            System.out.println(o.toString() + "클라이언트로 부터 옴");
+            return o;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return null;
     }
+
+
 
     public void stopServer() { // 서버 종료 시 호출
         try {

@@ -1,20 +1,25 @@
-[INFO|2:46:01]: Started loading resources. 
-[FINE|2:46:01]: Sprite Ship loaded. 
-[FINE|2:46:01]: Sprite ShipDestroyed loaded. 
-[FINE|2:46:01]: Sprite Bullet loaded. 
-[FINE|2:46:01]: Sprite EnemyBullet loaded. 
-[FINE|2:46:01]: Sprite EnemyShipA1 loaded. 
-[FINE|2:46:01]: Sprite EnemyShipA2 loaded. 
-[FINE|2:46:01]: Sprite EnemyShipB1 loaded. 
-[FINE|2:46:01]: Sprite EnemyShipB2 loaded. 
-[FINE|2:46:01]: Sprite EnemyShipC1 loaded. 
-[FINE|2:46:01]: Sprite EnemyShipC2 loaded. 
-[FINE|2:46:01]: Sprite EnemyShipSpecial loaded. 
-[FINE|2:46:01]: Sprite Explosion loaded. 
-[INFO|2:46:01]: Finished loading the sprites. 
-[INFO|2:46:01]: Finished loading the fonts. 
-[INFO|2:46:01]: Starting 448x520 title screen at 60 fps. 
-[INFO|2:46:02]: Closing title screen. 
-[INFO|2:46:02]: Starting 448x520 Online Setting screen at 60 fps. 
-[INFO|2:46:04]: Closing Online Setting screen. 
-[INFO|2:46:04]: Starting 448x520 Connect Room at 60 fps 
+[INFO|4:41:03]: Started loading resources. 
+[FINE|4:41:03]: Sprite Ship loaded. 
+[FINE|4:41:03]: Sprite ShipDestroyed loaded. 
+[FINE|4:41:03]: Sprite Bullet loaded. 
+[FINE|4:41:03]: Sprite EnemyBullet loaded. 
+[FINE|4:41:03]: Sprite EnemyShipA1 loaded. 
+[FINE|4:41:03]: Sprite EnemyShipA2 loaded. 
+[FINE|4:41:03]: Sprite EnemyShipB1 loaded. 
+[FINE|4:41:03]: Sprite EnemyShipB2 loaded. 
+[FINE|4:41:03]: Sprite EnemyShipC1 loaded. 
+[FINE|4:41:03]: Sprite EnemyShipC2 loaded. 
+[FINE|4:41:03]: Sprite EnemyShipSpecial loaded. 
+[FINE|4:41:03]: Sprite Explosion loaded. 
+[INFO|4:41:03]: Finished loading the sprites. 
+[INFO|4:41:03]: Finished loading the fonts. 
+[INFO|4:41:03]: Starting 448x520 title screen at 60 fps. 
+[INFO|4:41:06]: Closing title screen. 
+[INFO|4:41:06]: Starting 448x520 Online Setting screen at 60 fps. 
+[INFO|4:41:06]: Closing Online Setting screen. 
+[INFO|4:41:06]: Starting 448x520 Create Room at 60 fps 
+[INFO|4:41:16]: Closing Create Room screen. 
+[INFO|4:41:16]: Starting 448x520 game screen at 60 fps. 
+[INFO|4:41:16]: Initializing 5x4 ship formation in (20,100) 
+[INFO|4:41:28]: Hit on Player1 ship, 2 lives remaining. 
+[INFO|4:41:32]: Hit on Player1 ship, 1 lives remaining. 

@@ -26,19 +26,26 @@ public class CreateRoomScreen extends Screen {
     private Cooldown selectionCooldown;
     private Cooldown messageCooldown;
     private Cooldown inputCooldown;
+
     boolean nowinput = false;
 
     String message = "";
 
     int diffcultindex;
     int selectitem = 0;
+    int conntime = 0;
 
     String menuString[] = {"", "PORT : ", "PASSWORD : ", "MY NAME : ", "CREATE", "EXIT"};
     String port = "3000";
     String password = "1234";
     String myname = "Player1";
-
     RoomPacket roomPacket = new RoomPacket("","");
+    public String getMyname() {
+        return myname;
+    }
+    public RoomPacket getRoomPacket() {
+        return roomPacket;
+    }
 
     IGameState.Difficult difficult;
 
@@ -102,19 +109,29 @@ public class CreateRoomScreen extends Screen {
 //            showMessage(data);
 //        }
 
-        if (GameServer.getInstance().isWaiting() ) {
-            hlinemoveper += 2 * hlinesign;
+        if (GameServer.getInstance().isWaiting() || roomPacket.isConn() ) {
+            hlinemoveper += (roomPacket.isConn()?1:2) * hlinesign;
+            if (hlinemoveper > 100) {
+                hlinemoveper = 100;
+                hlinesign = -1;
+            } else if (hlinemoveper < 0) {
+                hlinemoveper = 0;
+                hlinesign = 1;
+            }
         } else{
-            hlinemoveper += 1 * hlinesign;
-        }
-        if (hlinemoveper > 100) {
-            hlinemoveper = 100;
-            hlinesign = -1;
-        } else if (hlinemoveper < 0) {
             hlinemoveper = 0;
-            hlinesign = 1;
         }
         draw();
+
+        if( roomPacket.isConn() )
+        {
+            if(++conntime >= fps*2)
+            {
+                this.returnCode = 1;
+                this.isRunning = false;
+               // GameServer.getInstance().sendObject(roomPacket);
+            }
+        }
 
         if(nowinput && inputCooldown.checkFinished()){
             String in = inputManager.alphanumDown();
@@ -235,6 +252,7 @@ public class CreateRoomScreen extends Screen {
         messageCooldown.reset();
     }
     private void startInput(){
+        inputManager.clearUp();
         nowinput = true;
     }
     private void endInput(){

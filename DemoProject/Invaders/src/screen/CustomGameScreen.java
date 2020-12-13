@@ -95,6 +95,31 @@ public class CustomGameScreen extends IGameScreen {
     protected final void update() {
         super.update();
 
+        if( isP2PCLIENT() ){
+
+            Ship ship = players.get(1).getShip();
+            boolean isRightBorder = ship.getPositionX()
+                    + ship.getWidth() + ship.getSpeed() > this.width - 1;
+            boolean isLeftBorder = ship.getPositionX()
+                    - ship.getSpeed() < 1;
+            int dir = 0;
+            if (inputManager.isKeyDown(players.get(1).getInputs()[0]) && !isRightBorder) {
+                dir += MovePacket.RIGHT;
+            }
+            if (inputManager.isKeyDown(players.get(1).getInputs()[1]) && !isLeftBorder) {
+                dir += MovePacket.LEFT;
+            }
+            if (inputManager.isKeyDown(players.get(1).getInputs()[2]))
+            {
+                dir += MovePacket.ATTACK;
+            }
+
+            GameServerClient.getInstance().sendObject(new MovePacket(dir));
+
+            draw();
+            return;
+        }
+
         if (this.inputDelay.checkFinished() && !this.levelFinished) {
             //////////치트 영역///////////
 
@@ -139,15 +164,28 @@ public class CustomGameScreen extends IGameScreen {
                     boolean isLeftBorder = ship.getPositionX()
                             - ship.getSpeed() < 1;
 
-                    if (inputManager.isKeyDown(p.getInputs()[0]) && !isRightBorder) {
-                        ship.moveRight();
+                    if( !p.isClient()) {
+                        if (inputManager.isKeyDown(p.getInputs()[0]) && !isRightBorder) {
+                            ship.moveRight();
+                        }
+                        if (inputManager.isKeyDown(p.getInputs()[1]) && !isLeftBorder) {
+                            ship.moveLeft();
+                        }
+                        if (inputManager.isKeyDown(p.getInputs()[2]))
+                            if (ship.shoot(this.bullets))
+                                p.addbulletsShot(1);
+                    }else{
+                        MovePacket move = (MovePacket)GameServer.getInstance().readObject();
+                        if (move.isRight() && !isRightBorder) {
+                            ship.moveRight();
+                        }
+                        if (move.isLeft() && !isLeftBorder) {
+                            ship.moveLeft();
+                        }
+                        if (move.isATTACK() )
+                            if (ship.shoot(this.bullets))
+                                p.addbulletsShot(1);
                     }
-                    if (inputManager.isKeyDown(p.getInputs()[1]) && !isLeftBorder) {
-                        ship.moveLeft();
-                    }
-                    if (inputManager.isKeyDown(p.getInputs()[2]))
-                        if (ship.shoot(this.bullets))
-                            p.addbulletsShot(1);
                 }
                 p.update();
             }
@@ -316,7 +354,10 @@ public class CustomGameScreen extends IGameScreen {
         return true;
     }
 
-    boolean isP2P(){
-        return (multimethod == CustomGameState.MultiMethod.P2P);
+    boolean isP2PHOST(){
+        return (multimethod == CustomGameState.MultiMethod.P2PHOST);
+    }
+    boolean isP2PCLIENT(){
+        return (multimethod == CustomGameState.MultiMethod.P2PCLIENT);
     }
 }

@@ -11,8 +11,8 @@ import java.util.Scanner;
 public class GameServerClient {
 
     Socket socket;
-    BufferedReader in = null;
-    BufferedWriter out = null;
+//    BufferedReader in = null;
+//    BufferedWriter out = null;
     ObjectInputStream ois = null;
     ObjectOutputStream oos = null;
     InputStream input = null;
@@ -32,28 +32,32 @@ public class GameServerClient {
             public void run() {
                 try {
                     // 소켓 생성 및 연결 요청
-                    socket = new Socket();
-                    socket.connect(new InetSocketAddress(ip, port));
+                    socket = new Socket(ip, port);
+                    //socket.connect(new InetSocketAddress(ip, port));
                     System.out.println("[서버연결]");
-                    input = socket.getInputStream();
+
                     output = socket.getOutputStream();
+                    input = socket.getInputStream();
                     oos = new ObjectOutputStream(output);
                     ois = new ObjectInputStream(input);
-                    in = new BufferedReader(new InputStreamReader(input));
-                    out = new BufferedWriter(new OutputStreamWriter(output));
-
+//                    in = new BufferedReader(new InputStreamReader(input));
+//                    out = new BufferedWriter(new OutputStreamWriter(output));
                     System.out.println("연결정보"+name + password);
                     oos.writeObject(new RoomPacket(name, password));
                     oos.flush();
+                    RoomPacket room = (RoomPacket) ois.readObject();
+                    if( room.isConn() ) {
+                        setConnect(true);
+                    }else{
+                        socket.close();
+                    }
                 } catch (Exception e) {
                     System.out.println("[서버 통신 안됨]");
-                    if (!socket.isClosed()) {
+                    if (socket!=null && !socket.isClosed()) {
                         stopClient();
                     }
                     return;
                 }
-                // 서버에서 보낸 데이터 받기
-                receive();
             }
         };
         // 스레드 시작
@@ -67,61 +71,35 @@ public class GameServerClient {
             if (socket != null && !socket.isClosed()) {
                 socket.close();
             }
+            setConnect(false);
         } catch (IOException e) {
         }
     }
 
-    public String receive() {
-        while (true) {
-            try {
-                byte[] byteArr = new byte[100];
-                InputStream inputStream = socket.getInputStream();
+    public void sendObject( Object o ){
+        try {
+            oos.writeObject(o);
+            oos.flush();
+            if( o.toString().compareTo("0") != 0)
+            System.out.println(o.toString() + "호스트로 보냄");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-                // 데이터 read
-                int readByteCount = inputStream.read(byteArr);
-
-                // 서버가 정상적으로 Socket의 close()를 호출했을 경우
-                if (readByteCount == -1) {
-                    throw new IOException();
-                }
-
-                if( inputStream != null )
-                    return new String(byteArr, 0, readByteCount, "UTF-8");
-                // 문자열로 변환
-                String data = new String(byteArr, 0, readByteCount, "UTF-8");
-
-                System.out.println("[받기 완료] " + data);
-            } catch (Exception e) {
-                System.out.println("[서버 통신 안됨]");
-                stopClient();
-                break;
-            }
+    public Object readObject() {
+        try {
+            ois = new ObjectInputStream(input);
+            return ois.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
-
-    public void send(String data) {
-        // 스레드 생성
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    // 서버로 데이터 보내기
-                    byte[] byteArr = data.getBytes("UTF-8");
-                    OutputStream outputStream = socket.getOutputStream();
-                    // 데이터 write
-                    outputStream.write(byteArr);
-                    outputStream.flush();
-                    System.out.println("[보내기 완료]");
-                } catch (Exception e) {
-                    System.out.println("[서버 통신 안됨]");
-                    stopClient();
-                }
-            }
-        };
-        thread.start();
-    }
-
 
     public boolean isConnect() {
         return isConnect;

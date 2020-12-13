@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class CustomGameState extends IGameState{
 
-    public enum MultiMethod{LOCAL, P2P};
+    public enum MultiMethod{LOCAL, P2PHOST, P2PCLIENT};
 
     private int level;
     private MultiMethod method;

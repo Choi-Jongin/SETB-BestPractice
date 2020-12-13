@@ -34,6 +34,12 @@ public class ConnectRoomScreen extends Screen {
     String ip = "";
     String port = "3000";
     String password = "1234";
+    private int conntime = 0;
+
+    public String getMyname() {
+        return myname;
+    }
+
     String myname = "Player2";
 
     IGameState.Difficult difficult;
@@ -62,7 +68,7 @@ public class ConnectRoomScreen extends Screen {
 
         this.port = "3000";
         this.password = "1234";
-        this.myname = "Player1";
+        this.myname = "Player2";
 
         this.isWait = false;
         this.hlinemoveper = 0;
@@ -112,6 +118,14 @@ public class ConnectRoomScreen extends Screen {
                 }
             inputCooldown.reset();
             inputManager.clearUp();
+        }
+        if( GameServerClient.getInstance().isConnect() )
+        {
+            if(++conntime >= fps*2)
+            {
+                this.returnCode = 1;
+                this.isRunning = false;
+            }
         }
         draw();
         if (this.selectionCooldown.checkFinished()
@@ -210,6 +224,7 @@ public class ConnectRoomScreen extends Screen {
         messageCooldown.reset();
     }
     private void startInput(){
+        inputManager.clearUp();
         nowinput = true;
     }
     private void endInput(){
