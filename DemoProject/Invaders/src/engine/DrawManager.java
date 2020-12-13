@@ -270,7 +270,7 @@ public final class DrawManager {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		backBufferGraphics.drawString(Integer.toString(lives), 20, 25+25*player);
-		Ship dummyShip = new Ship(0, 0,  Player.color[player]);
+		Ship dummyShip = new Ship(0, 0,  Player.PlayerColor(player));
 		for (int i = 0; i < lives; i++)
 			drawEntity(dummyShip, 40 + 35 * i, 10+25*player);
 	}

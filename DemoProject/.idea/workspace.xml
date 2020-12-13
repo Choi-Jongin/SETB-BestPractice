@@ -20,16 +20,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="721bb949-8eed-4dce-8018-2433ac848f35" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Invaders/src/screen/IGameScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Invaders/src/screen/IScoreScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/Core.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/Core.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Invaders/src/engine/DrawManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/DrawManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Invaders/src/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/entity/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Invaders/src/screen/CustomGameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/CustomGameScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Invaders/src/screen/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/GameScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/screen/HighScoreScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/HighScoreScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/screen/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/Screen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/screen/TitleScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/TitleScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log" beforeDir="false" afterPath="$PROJECT_DIR$/log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/DemoProject/engine/DrawManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/engine/DrawManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/screen/HighScoreScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/screen/HighScoreScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/screen/CustomGameScreen$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/screen/CustomGameScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/screen/CustomGameScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/screen/GameScreen$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/screen/GameScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/screen/GameScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/normalscores" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/normalscores" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,6 +131,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1607709738056" />
+    <state x="742" y="412" width="435" height="222" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1607846643384">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="742" y="412" width="435" height="222" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040@0.0.1920.1040" timestamp="1607846643384" />
     <state x="685" y="380" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1607689254962">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -134,48 +143,57 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1607685978093" />
-    <state width="1877" height="235" key="GridCell.Tab.0.bottom" timestamp="1607711899816">
+    <state width="1877" height="235" key="GridCell.Tab.0.bottom" timestamp="1607848859868">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="235" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607711899816" />
-    <state width="1877" height="235" key="GridCell.Tab.0.center" timestamp="1607711899816">
+    <state width="1877" height="235" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607848859868" />
+    <state width="1877" height="235" key="GridCell.Tab.0.center" timestamp="1607848859868">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="235" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607711899816" />
-    <state width="1877" height="235" key="GridCell.Tab.0.left" timestamp="1607711899816">
+    <state width="1877" height="235" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607848859868" />
+    <state width="1877" height="235" key="GridCell.Tab.0.left" timestamp="1607848859868">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="235" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607711899816" />
-    <state width="1877" height="235" key="GridCell.Tab.0.right" timestamp="1607711899816">
+    <state width="1877" height="235" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607848859868" />
+    <state width="1877" height="235" key="GridCell.Tab.0.right" timestamp="1607848859868">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="235" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607711899816" />
-    <state width="1877" height="179" key="GridCell.Tab.1.bottom" timestamp="1607710330078">
+    <state width="1877" height="235" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607848859868" />
+    <state width="1877" height="179" key="GridCell.Tab.1.bottom" timestamp="1607846968531">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="179" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607710330078" />
-    <state width="1877" height="179" key="GridCell.Tab.1.center" timestamp="1607710330078">
+    <state width="1877" height="179" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607846968531" />
+    <state width="1877" height="179" key="GridCell.Tab.1.center" timestamp="1607846968531">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="179" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607710330078" />
-    <state width="1877" height="179" key="GridCell.Tab.1.left" timestamp="1607710330078">
+    <state width="1877" height="179" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607846968531" />
+    <state width="1877" height="179" key="GridCell.Tab.1.left" timestamp="1607846968531">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="179" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607710330078" />
-    <state width="1877" height="179" key="GridCell.Tab.1.right" timestamp="1607710330078">
+    <state width="1877" height="179" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607846968531" />
+    <state width="1877" height="179" key="GridCell.Tab.1.right" timestamp="1607846968531">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="179" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607710330078" />
-    <state x="667" y="118" width="586" height="804" key="find.popup" timestamp="1607681695960">
+    <state width="1877" height="179" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607846968531" />
+    <state x="667" y="118" width="586" height="804" key="find.popup" timestamp="1607846030918">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="118" width="586" height="804" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607681695960" />
+    <state x="667" y="118" width="586" height="804" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607846030918" />
     <state x="803" y="275" key="refactoring.ChangeSignatureDialog" timestamp="1607669948750">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="803" y="275" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607669948750" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Invaders/src/screen/GameScreen.java</url>
+          <line>127</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="entity.Bullet" memberName="shooter" />

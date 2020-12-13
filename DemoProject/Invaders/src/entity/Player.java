@@ -7,10 +7,23 @@ import screen.Screen;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 public class Player{
 
-    public static Color[] color = new Color[]{Color.GREEN, Color.CYAN};
+    private static Color[] color = new Color[]{Color.GREEN, Color.CYAN, Color.ORANGE};
+    public static Color PlayerColor(int i){
+        if( i >= color.length){
+            Random random = new Random();
+            Color temp[] = new Color[color.length+1];
+            int index = 0;
+            for(index = 0 ; index < color.length; index++)
+                temp[index] = color[index];
+            temp[index] = new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255));
+            color = temp;
+        }
+        return color[i];
+    }
 
     /** Player's ship. */
     private Ship ship;

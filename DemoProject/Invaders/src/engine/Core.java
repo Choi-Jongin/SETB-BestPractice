@@ -149,7 +149,12 @@ public final class Core {
         int returnCode = -1;
         int startlives = MAX_LIVES;
         IGameState.Difficult difficult = IGameState.Difficult.NORMAL;
+        CustomGameState customGameState = null;
+        ArrayList<Player> players = new ArrayList<Player>();
+        int playernum = 6;
+        int input[][] = new int[playernum][];
         do {
+
             switch (returnCode) {
                 case -1:
                     // Main menu.
@@ -202,13 +207,15 @@ public final class Core {
                     LOGGER.info("Closing score screen.");
                     break;
                 case 1:
-                    // CustomGame & score.
-                    CustomGameState customGameState;
-                    int playernum = 2;
-                    ArrayList<Player> players = new ArrayList<Player>();
-                    int input[][] = new int[playernum][];
+                    // 2P CustomGame & score.
+                    playernum = 16;
+                    input = new int[playernum][];
                     input[0] = new int[]{KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_W};
                     input[1] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_UP};
+                    input[2] = new int[]{KeyEvent.VK_NUMPAD3, KeyEvent.VK_NUMPAD1, KeyEvent.VK_NUMPAD5};
+                    for( int i = 3 ; i < playernum ;++i)
+                        input[i] = new int[]{KeyEvent.VK_NUMPAD3, KeyEvent.VK_NUMPAD1, KeyEvent.VK_NUMPAD5};
+
                     for( int i = 0 ; i < playernum ; i++)
                         players.add( new Player("Player"+(i+1), 0,MAX_LIVES, input[i]));
                     startlives = MAX_LIVES;
