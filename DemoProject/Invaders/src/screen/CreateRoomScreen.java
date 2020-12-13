@@ -1,8 +1,6 @@
 package screen;
 
-import engine.Cooldown;
-import engine.Core;
-import engine.IGameState;
+import engine.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -95,7 +93,12 @@ public class CreateRoomScreen extends Screen {
     protected final void update() {
         super.update();
 
-        if( isWait ) {
+        String data = GameServer.getInstance().read();
+        if( data != null){
+            showMessage(data);
+        }
+
+        if( GameServer.getInstance().isWaiting()) {
             hlinemoveper += 1 * hlinesign;
             if (hlinemoveper > 100) {
                 hlinemoveper = 100;
@@ -120,16 +123,17 @@ public class CreateRoomScreen extends Screen {
 
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE) || inputManager.isKeyDown(KeyEvent.VK_ENTER)) {
                 Select();
+                selectionCooldown.reset();
             }
         }
     }
 
     private void Select() {
+        if (selectitem == 0) {
 
-        if (selectitem == 3) {
+        }else if (selectitem == 3) {
             Create();
-        }
-        if (selectitem == MAX_SELECTNUM) {
+        }else if (selectitem == MAX_SELECTNUM) {
 
             this.returnCode = 5;
             this.isRunning = false;
@@ -146,36 +150,39 @@ public class CreateRoomScreen extends Screen {
         }
         ////////////////////////
 
-        ExecutorService executorService = Executors.newFixedThreadPool(
-                Runtime.getRuntime().availableProcessors()
-        );
+        GameServer.getInstance().startServer(port);
 
-        isWait = true;
-        this.hlinemoveper = 0;
-        this.hlinesign = 1;
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
 
-                try {
-                    lister = new ServerSocket(port);
-
-                    server_socket = lister.accept();
-                    BufferedReader in
-                            = new BufferedReader(new InputStreamReader(server_socket.getInputStream()));
-                    BufferedWriter out
-                            = new BufferedWriter(new OutputStreamWriter(server_socket.getOutputStream()));
-
-                    showMessage(in.readLine());
-                    isWait = false;
-                } catch (IOException e) {
-                    System.out.println("해당 포트가 열려있습니다.");
-                }
-
-            }
-        };
-        // 스레드풀에서 처리
-        executorService.submit(runnable);
+//        ExecutorService executorService = Executors.newFixedThreadPool(
+//                Runtime.getRuntime().availableProcessors()
+//        );
+//
+//        isWait = true;
+//        this.hlinemoveper = 0;
+//        this.hlinesign = 1;
+//        Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                try {
+//                    lister = new ServerSocket(port);
+//
+//                    server_socket = lister.accept();
+//                    BufferedReader in
+//                            = new BufferedReader(new InputStreamReader(server_socket.getInputStream()));
+//                    BufferedWriter out
+//                            = new BufferedWriter(new OutputStreamWriter(server_socket.getOutputStream()));
+//
+//                    showMessage(in.readLine());
+//                    isWait = false;
+//                } catch (IOException e) {
+//                    System.out.println("해당 포트가 열려있습니다.");
+//                }
+//
+//            }
+//        };
+//        // 스레드풀에서 처리
+//        executorService.submit(runnable);
     }
 
     private void nextMenuItem() {
@@ -205,7 +212,7 @@ public class CreateRoomScreen extends Screen {
         optionString[4] = "";
         drawManager.drawCreateSetting(this, selectitem, getMyIP(), menuString, optionString);
 
-        if( isWait ) {
+        if( GameServer.getInstance().isWaiting() ) {
             String waiting = "wait";
             for( int i = 0 ; i < ((50-(50-hlinemoveper)*hlinesign) *3/101)+1 ; ++i)
                 waiting += ".";

@@ -1,16 +1,20 @@
-[INFO|8:52:02]: Started loading resources. 
-[FINE|8:52:02]: Sprite Ship loaded. 
-[FINE|8:52:02]: Sprite ShipDestroyed loaded. 
-[FINE|8:52:02]: Sprite Bullet loaded. 
-[FINE|8:52:02]: Sprite EnemyBullet loaded. 
-[FINE|8:52:02]: Sprite EnemyShipA1 loaded. 
-[FINE|8:52:02]: Sprite EnemyShipA2 loaded. 
-[FINE|8:52:02]: Sprite EnemyShipB1 loaded. 
-[FINE|8:52:02]: Sprite EnemyShipB2 loaded. 
-[FINE|8:52:02]: Sprite EnemyShipC1 loaded. 
-[FINE|8:52:02]: Sprite EnemyShipC2 loaded. 
-[FINE|8:52:02]: Sprite EnemyShipSpecial loaded. 
-[FINE|8:52:02]: Sprite Explosion loaded. 
-[INFO|8:52:02]: Finished loading the sprites. 
-[INFO|8:52:02]: Finished loading the fonts. 
-[INFO|8:52:02]: Starting 448x520 title screen at 60 fps. 
+[INFO|10:19:15]: Started loading resources. 
+[FINE|10:19:15]: Sprite Ship loaded. 
+[FINE|10:19:15]: Sprite ShipDestroyed loaded. 
+[FINE|10:19:15]: Sprite Bullet loaded. 
+[FINE|10:19:15]: Sprite EnemyBullet loaded. 
+[FINE|10:19:15]: Sprite EnemyShipA1 loaded. 
+[FINE|10:19:15]: Sprite EnemyShipA2 loaded. 
+[FINE|10:19:15]: Sprite EnemyShipB1 loaded. 
+[FINE|10:19:15]: Sprite EnemyShipB2 loaded. 
+[FINE|10:19:15]: Sprite EnemyShipC1 loaded. 
+[FINE|10:19:15]: Sprite EnemyShipC2 loaded. 
+[FINE|10:19:15]: Sprite EnemyShipSpecial loaded. 
+[FINE|10:19:15]: Sprite Explosion loaded. 
+[INFO|10:19:15]: Finished loading the sprites. 
+[INFO|10:19:15]: Finished loading the fonts. 
+[INFO|10:19:15]: Starting 448x520 title screen at 60 fps. 
+[INFO|10:19:23]: Closing title screen. 
+[INFO|10:19:23]: Starting 448x520 Online Setting screen at 60 fps. 
+[INFO|10:19:24]: Closing Online Setting screen. 
+[INFO|10:19:24]: Starting 448x520 Connect Room at 60 fps 

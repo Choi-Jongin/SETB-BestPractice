@@ -1,8 +1,6 @@
 package screen;
 
-import engine.Cooldown;
-import engine.Core;
-import engine.IGameState;
+import engine.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -31,17 +29,12 @@ public class ConnectRoomScreen extends Screen {
     int selectitem = 0;
 
     String menuString[] = { "HOST IP : ", "PORT : ", "PASSWORD : ", "MY NAME : ", "CONNECT", "EXIT"};
-    InetAddress ip = null;
+    String ip = "";
     int port = 3000;
     String password = "1234";
     String myname = "Player2";
 
     IGameState.Difficult difficult;
-
-    /*** server ***/
-    Socket clinetsocket = new Socket();
-    BufferedReader in = null;
-    BufferedWriter out = null;
 
     boolean isWait = false;
     int hlinemoveper = 0;
@@ -71,10 +64,8 @@ public class ConnectRoomScreen extends Screen {
         this.hlinemoveper = 0;
         this.hlinestart = this.getHeight()/5*3;
         this.hlinesign = 1;
-        /////////
-
         try {
-            ip = InetAddress.getLocalHost();
+            this.ip = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
@@ -128,10 +119,11 @@ public class ConnectRoomScreen extends Screen {
 
     private void Select() {
 
-        if (selectitem == 4) {
+        if(selectitem == 0){
+            GameServerClient.getInstance().send("가나?");
+        } else if (selectitem == 4) {
             Connect();
-        }
-        if (selectitem == MAX_SELECTNUM) {
+        }else if (selectitem == MAX_SELECTNUM) {
 
             this.returnCode = 5;
             this.isRunning = false;
@@ -145,25 +137,8 @@ public class ConnectRoomScreen extends Screen {
             showMessage("please fill your name");
             return;
         }
-        try {
-//            clinetsocket.bind(new InetSocketAddress(InetAddress.getLocalHost().getHostAddress(),port));
-//            clinetsocket.connect( new InetSocketAddress(ip.getHostAddress(),port));
 
-            clinetsocket = new Socket(ip.getHostAddress(),port);
-
-            BufferedReader in
-                    = new BufferedReader( new InputStreamReader(clinetsocket.getInputStream()));
-            BufferedWriter out
-                    = new BufferedWriter( new OutputStreamWriter(clinetsocket.getOutputStream()));
-            out.write(myname + password);
-            out.flush();
-
-        } catch (ConnectException e) {
-            System.out.println(e.getMessage());
-            showMessage(e.getMessage());
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
+        GameServerClient.getInstance().startClient(ip,port);
 
     }
     private void nextMenuItem() {
@@ -186,7 +161,7 @@ public class ConnectRoomScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
         String optionString[] = new String[menuString.length];
-        optionString[0] = ip.getHostAddress();
+        optionString[0] = ip;
         optionString[1] = port +"";
         optionString[2] = password;
         optionString[3] = myname;
