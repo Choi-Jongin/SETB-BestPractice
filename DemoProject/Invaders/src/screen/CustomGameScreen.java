@@ -95,32 +95,35 @@ public class CustomGameScreen extends IGameScreen {
     protected final void update() {
         super.update();
 
-        if( isP2PCLIENT() ){
-
-            Ship ship = players.get(1).getShip();
-            boolean isRightBorder = ship.getPositionX()
-                    + ship.getWidth() + ship.getSpeed() > this.width - 1;
-            boolean isLeftBorder = ship.getPositionX()
-                    - ship.getSpeed() < 1;
-            int dir = 0;
-            if (inputManager.isKeyDown(players.get(1).getInputs()[0]) && !isRightBorder) {
-                dir += MovePacket.RIGHT;
-            }
-            if (inputManager.isKeyDown(players.get(1).getInputs()[1]) && !isLeftBorder) {
-                dir += MovePacket.LEFT;
-            }
-            if (inputManager.isKeyDown(players.get(1).getInputs()[2]))
-            {
-                dir += MovePacket.ATTACK;
-            }
-
-            GameServerClient.getInstance().sendObject(new MovePacket(dir));
-
-            draw();
-            return;
-        }
-
         if (this.inputDelay.checkFinished() && !this.levelFinished) {
+
+            if( isP2PCLIENT() ){
+
+                Ship ship = players.get(1).getShip();
+                boolean isRightBorder = ship.getPositionX()
+                        + ship.getWidth() + ship.getSpeed() > this.width - 1;
+                boolean isLeftBorder = ship.getPositionX()
+                        - ship.getSpeed() < 1;
+                int dir = 0;
+                if (inputManager.isKeyDown(players.get(1).getInputs()[0]) && !isRightBorder) {
+                    dir += MovePacket.RIGHT;
+                }
+                if (inputManager.isKeyDown(players.get(1).getInputs()[1]) && !isLeftBorder) {
+                    dir += MovePacket.LEFT;
+                }
+                if (inputManager.isKeyDown(players.get(1).getInputs()[2]))
+                {
+                    dir += MovePacket.ATTACK;
+                }
+
+                GameServerClient.getInstance().sendObject(new MovePacket(dir));
+
+                draw();
+
+                GameServerClient.getInstance().readObject();
+                return;
+            }
+
             //////////치트 영역///////////
 
             //점수 증가
@@ -225,6 +228,8 @@ public class CustomGameScreen extends IGameScreen {
 
         if (this.levelFinished && this.screenFinishedCooldown.checkFinished())
             this.isRunning = false;
+
+        GameServer.getInstance().sendObject(new GamePacket());
 
     }
 

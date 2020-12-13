@@ -73,7 +73,9 @@ public class GameServerClient {
             }
             setConnect(false);
         } catch (IOException e) {
-        }
+            e.printStackTrace();
+        }catch (Exception e){
+            System.out.println(e.getMessage());}
     }
 
     public void sendObject( Object o ){
@@ -84,13 +86,14 @@ public class GameServerClient {
             System.out.println(o.toString() + "호스트로 보냄");
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }catch (Exception e){
+            System.out.println(e.getMessage());}
     }
 
     public Object readObject() {
         try {
-            ois = new ObjectInputStream(input);
-            return ois.readObject();
+            Object o = ois.readObject();
+            return o;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

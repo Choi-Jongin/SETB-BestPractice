@@ -64,8 +64,8 @@ public class GameServer {
                     waiting = true;
                     Socket socket = serverSocket.accept();
                     System.out.println("[연결 수락: " + socket.getRemoteSocketAddress() + ": " + Thread.currentThread().getName() + "]");
-                    input = socket.getInputStream();
                     output = socket.getOutputStream();
+                    input = socket.getInputStream();
                     oos = new ObjectOutputStream(output);
                     ois = new ObjectInputStream(input);
 //                    in = new BufferedReader(new InputStreamReader(input));
@@ -102,13 +102,14 @@ public class GameServer {
         return connections.size() != 0;
     }
 
-    public void sendObject( Object o){
+    public void sendObject( Object o ){
         try {
             oos.writeObject(o);
             oos.flush();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }catch (Exception e){
+        System.out.println(e.getMessage());}
     }
 
     public Object readObject() {
@@ -121,7 +122,8 @@ public class GameServer {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }catch (Exception e){
+            System.out.println(e.getMessage());}
         return null;
     }
 
