@@ -82,12 +82,13 @@ public class GameServerClient {
         try {
             oos.writeObject(o);
             oos.flush();
-            if( o.toString().compareTo("0") != 0)
-            System.out.println(o.toString() + "호스트로 보냄");
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (NullPointerException e){
+            System.out.println("아웃풋 미생성");
         }catch (Exception e){
-            System.out.println(e.getMessage());}
+            e.printStackTrace();
+        }
     }
 
     public Object readObject() {

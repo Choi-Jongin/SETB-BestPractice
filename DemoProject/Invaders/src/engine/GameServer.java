@@ -108,22 +108,25 @@ public class GameServer {
             oos.flush();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (NullPointerException e){
+            System.out.println("아웃풋 미생성");
         }catch (Exception e){
-        System.out.println(e.getMessage());}
+            e.printStackTrace();
+        }
     }
 
     public Object readObject() {
         try {
+
             Object o = ois.readObject();
-            if( o.toString().compareTo("0") != 0)
-            System.out.println(o.toString() + "클라이언트로 부터 옴");
             return o;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }catch (Exception e){
-            System.out.println(e.getMessage());}
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
