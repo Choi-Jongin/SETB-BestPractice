@@ -22,6 +22,8 @@ public class ConnectRoomScreen extends Screen {
      */
     private Cooldown selectionCooldown;
     private Cooldown messageCooldown;
+    private Cooldown inputCooldown;
+    boolean nowinput = false;
 
     String message = "";
 
@@ -30,7 +32,7 @@ public class ConnectRoomScreen extends Screen {
 
     String menuString[] = { "HOST IP : ", "PORT : ", "PASSWORD : ", "MY NAME : ", "CONNECT", "EXIT"};
     String ip = "";
-    int port = 3000;
+    String port = "3000";
     String password = "1234";
     String myname = "Player2";
 
@@ -55,8 +57,10 @@ public class ConnectRoomScreen extends Screen {
         this.selectionCooldown.reset();
         this.messageCooldown = Core.getCooldown(3000);
         this.messageCooldown.reset();
+        this.inputCooldown = Core.getCooldown(1000/fps);
+        this.inputCooldown.reset();
 
-        this.port = 3000;
+        this.port = "3000";
         this.password = "1234";
         this.myname = "Player1";
 
@@ -97,7 +101,18 @@ public class ConnectRoomScreen extends Screen {
             hlinemoveper = 0;
             hlinesign = 1;
         }
-
+        if(nowinput && inputCooldown.checkFinished()){
+            String in = inputManager.alphanumDown();
+            if(in != "")
+                switch ( selectitem){
+                    case 0: ip += in; break;
+                    case 1: port += in; break;
+                    case 2: password += in; break;
+                    case 3: myname += in; break;
+                }
+            inputCooldown.reset();
+            inputManager.clearUp();
+        }
         draw();
         if (this.selectionCooldown.checkFinished()
                 && this.inputDelay.checkFinished()) {
@@ -113,15 +128,26 @@ public class ConnectRoomScreen extends Screen {
 
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
                 Select();
+                selectionCooldown.reset();
             }
         }
     }
 
     private void Select() {
 
-        if(selectitem == 0){
-            GameServerClient.getInstance().send("가나?");
-        } else if (selectitem == 4) {
+        if (selectitem == 0) {
+            ip = "";
+            startInput();
+        }  else if (selectitem == 1) {
+            port= "";
+            startInput();
+        } else if (selectitem == 2) {
+            password = "";
+            startInput();
+        } else if (selectitem == 3) {
+            myname ="";
+            startInput();
+        }else if (selectitem == 4) {
             Connect();
         }else if (selectitem == MAX_SELECTNUM) {
 
@@ -130,7 +156,7 @@ public class ConnectRoomScreen extends Screen {
         }
     }
     private void Connect(){
-        if( port < 3000 || port >= 10000 ){
+        if( Integer.parseInt(port) < 3000 || Integer.parseInt(port) >= 10000 ){
             showMessage("port is only allowed from 3000 to 9999.");
             return;
         }else if( myname.length() < 1 ) {
@@ -138,7 +164,7 @@ public class ConnectRoomScreen extends Screen {
             return;
         }
 
-        GameServerClient.getInstance().startClient(ip,port);
+        GameServerClient.getInstance().startClient(ip,Integer.parseInt(port), myname, password);
 
     }
     private void nextMenuItem() {
@@ -146,6 +172,7 @@ public class ConnectRoomScreen extends Screen {
             selectitem = 0;
         else
             selectitem++;
+        nowinput = false;
     }
 
     private void previousMenuItem() {
@@ -153,6 +180,7 @@ public class ConnectRoomScreen extends Screen {
             selectitem = MAX_SELECTNUM;
         else
             selectitem--;
+        nowinput = false;
     }
 
     /**
@@ -162,7 +190,7 @@ public class ConnectRoomScreen extends Screen {
         drawManager.initDrawing(this);
         String optionString[] = new String[menuString.length];
         optionString[0] = ip;
-        optionString[1] = port +"";
+        optionString[1] = port;
         optionString[2] = password;
         optionString[3] = myname;
         optionString[4] = "";
@@ -181,5 +209,10 @@ public class ConnectRoomScreen extends Screen {
         message = msg;
         messageCooldown.reset();
     }
-
+    private void startInput(){
+        nowinput = true;
+    }
+    private void endInput(){
+        nowinput = false;
+    }
 }

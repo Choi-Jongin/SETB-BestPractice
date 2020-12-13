@@ -2,6 +2,7 @@ package engine;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.security.Key;
 
 /**
  * Manages keyboard input for the provided screen.
@@ -15,6 +16,7 @@ public final class InputManager implements KeyListener {
 	private static final int NUM_KEYS = 256;
 	/** Array with the jeys marked as pressed or not. */
 	private static boolean[] keys;
+	private static boolean[] keyups;
 	/** Singleton instance of the class. */
 	private static InputManager instance;
 
@@ -23,6 +25,7 @@ public final class InputManager implements KeyListener {
 	 */
 	private InputManager() {
 		keys = new boolean[NUM_KEYS];
+		keyups = new boolean[NUM_KEYS];
 	}
 
 	/**
@@ -46,7 +49,24 @@ public final class InputManager implements KeyListener {
 	public boolean isKeyDown(final int keyCode) {
 		return keys[keyCode];
 	}
-
+	public boolean isKeyUp(final int keyCode) {
+		return keyups[keyCode];
+	}
+	public String alphanumDown() {
+		String re = "";
+		for(int i = KeyEvent.VK_A; i <= KeyEvent.VK_Z ; i++)
+			if( keyups[i] )
+				re += (char)i;
+		for(int i = KeyEvent.VK_0; i <= KeyEvent.VK_9 ; i++)
+			if( keyups[i] )
+				re += (char)i;
+		if( keyups[46])
+			re+=".";
+		return re;
+	}
+	public void clearUp() {
+		keyups = new boolean[NUM_KEYS];
+	}
 	/**
 	 * Changes the state of the key to pressed.
 	 * 
@@ -67,8 +87,10 @@ public final class InputManager implements KeyListener {
 	 */
 	@Override
 	public void keyReleased(final KeyEvent key) {
-		if (key.getKeyCode() >= 0 && key.getKeyCode() < NUM_KEYS)
+		if (key.getKeyCode() >= 0 && key.getKeyCode() < NUM_KEYS) {
 			keys[key.getKeyCode()] = false;
+			keyups[key.getKeyCode()] = true;
+		}
 	}
 
 	/**
@@ -81,4 +103,5 @@ public final class InputManager implements KeyListener {
 	public void keyTyped(final KeyEvent key) {
 
 	}
+
 }

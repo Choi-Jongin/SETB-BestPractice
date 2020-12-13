@@ -18,35 +18,35 @@ public class CreateRoomScreen extends Screen {
      */
     private static final int SELECTION_TIME = 200;
     // SIZE - 1
-    private static final int MAX_SELECTNUM = 4;
+    private static final int MAX_SELECTNUM = 5;
 
     /**
      * Time between changes in user selection.
      */
     private Cooldown selectionCooldown;
     private Cooldown messageCooldown;
+    private Cooldown inputCooldown;
+    boolean nowinput = false;
 
     String message = "";
 
     int diffcultindex;
     int selectitem = 0;
 
-    String menuString[] = { "PORT : ", "PASSWORD : ", "MY NAME : ", "CREATE","EXIT"};
-    int port = 3000;
+    String menuString[] = {"", "PORT : ", "PASSWORD : ", "MY NAME : ", "CREATE", "EXIT"};
+    String port = "3000";
     String password = "1234";
     String myname = "Player1";
 
+    RoomPacket roomPacket = new RoomPacket("","");
+
     IGameState.Difficult difficult;
 
-    /*** server ***/
-    ServerSocket lister = null;  //서버 생성을 위한 ServerSocket
-    Socket server_socket = null;
-
     boolean isWait = false;
-    boolean isConnected = false;
     int hlinemoveper = 0;
     int hlinestart = 250;
     int hlinesign = 1;
+    boolean islocal = true;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -61,16 +61,20 @@ public class CreateRoomScreen extends Screen {
         this.selectionCooldown.reset();
         this.messageCooldown = Core.getCooldown(3000);
         this.messageCooldown.reset();
+        this.inputCooldown = Core.getCooldown(1000/fps);
+        this.inputCooldown.reset();
 
-        this.port = 3000;
+        this.port = "3000";
         this.password = "1234";
         this.myname = "Player1";
-
+        this.islocal = true;
+        this.nowinput = false;
         this.isWait = false;
-        this.isConnected = false;
+        this.roomPacket = new RoomPacket("","");
+
         this.hlinemoveper = 0;
         this.hlinesign = 1;
-        this.hlinestart = this.getHeight()/6*4;
+        this.hlinestart = this.getHeight() / 6 * 4;
 
         this.returnCode = 5;
 
@@ -93,22 +97,37 @@ public class CreateRoomScreen extends Screen {
     protected final void update() {
         super.update();
 
-        String data = GameServer.getInstance().read();
-        if( data != null){
-            showMessage(data);
+//        String data = GameServer.getInstance().read();
+//        if (data != null) {
+//            showMessage(data);
+//        }
+
+        if (GameServer.getInstance().isWaiting() ) {
+            hlinemoveper += 2 * hlinesign;
+        } else{
+            hlinemoveper += 1 * hlinesign;
+        }
+        if (hlinemoveper > 100) {
+            hlinemoveper = 100;
+            hlinesign = -1;
+        } else if (hlinemoveper < 0) {
+            hlinemoveper = 0;
+            hlinesign = 1;
+        }
+        draw();
+
+        if(nowinput && inputCooldown.checkFinished()){
+            String in = inputManager.alphanumDown();
+            if(in != "")
+            switch ( selectitem){
+                case 1: port += in; break;
+                case 2: password += in; break;
+                case 3: myname += in; break;
+            }
+            inputCooldown.reset();
+            inputManager.clearUp();
         }
 
-        if( GameServer.getInstance().isWaiting()) {
-            hlinemoveper += 1 * hlinesign;
-            if (hlinemoveper > 100) {
-                hlinemoveper = 100;
-                hlinesign = -1;
-            } else if (hlinemoveper < 0) {
-                hlinemoveper = 0;
-                hlinesign = 1;
-            }
-        }else hlinemoveper = 0;
-        draw();
         if (this.selectionCooldown.checkFinished()
                 && this.inputDelay.checkFinished()) {
             //상하
@@ -120,7 +139,6 @@ public class CreateRoomScreen extends Screen {
                 nextMenuItem();
                 this.selectionCooldown.reset();
             }
-
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE) || inputManager.isKeyDown(KeyEvent.VK_ENTER)) {
                 Select();
                 selectionCooldown.reset();
@@ -130,11 +148,21 @@ public class CreateRoomScreen extends Screen {
 
     private void Select() {
         if (selectitem == 0) {
-
-        }else if (selectitem == 3) {
+            islocal = !islocal;
+        }  else if (selectitem == 1) {
+            port= "";
+            startInput();
+        } else if (selectitem == 2) {
+            password = "";
+            startInput();
+        } else if (selectitem == 3) {
+            myname ="";
+            startInput();
+        }else if (selectitem == 4) {
             Create();
-        }else if (selectitem == MAX_SELECTNUM) {
+        } else if (selectitem == MAX_SELECTNUM) {
 
+            GameServer.getInstance().stopServer();
             this.returnCode = 5;
             this.isRunning = false;
         }
@@ -142,7 +170,7 @@ public class CreateRoomScreen extends Screen {
     }
 
     private void Create() {
-        if (port < 3000 || port >= 10000) {
+        if (Integer.parseInt(port) < 3000 || Integer.parseInt(port) >= 10000) {
             showMessage("port is only allowed from 3000 to 9999.");
             return;
         } else if (myname.length() < 1) {
@@ -150,42 +178,11 @@ public class CreateRoomScreen extends Screen {
         }
         ////////////////////////
 
-        GameServer.getInstance().startServer(port);
-
-
-//        ExecutorService executorService = Executors.newFixedThreadPool(
-//                Runtime.getRuntime().availableProcessors()
-//        );
-//
-//        isWait = true;
-//        this.hlinemoveper = 0;
-//        this.hlinesign = 1;
-//        Runnable runnable = new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                try {
-//                    lister = new ServerSocket(port);
-//
-//                    server_socket = lister.accept();
-//                    BufferedReader in
-//                            = new BufferedReader(new InputStreamReader(server_socket.getInputStream()));
-//                    BufferedWriter out
-//                            = new BufferedWriter(new OutputStreamWriter(server_socket.getOutputStream()));
-//
-//                    showMessage(in.readLine());
-//                    isWait = false;
-//                } catch (IOException e) {
-//                    System.out.println("해당 포트가 열려있습니다.");
-//                }
-//
-//            }
-//        };
-//        // 스레드풀에서 처리
-//        executorService.submit(runnable);
+        GameServer.getInstance().startServer(Integer.parseInt(port), password,roomPacket);
     }
 
     private void nextMenuItem() {
+        endInput();
         if (selectitem == MAX_SELECTNUM)
             selectitem = 0;
         else
@@ -193,6 +190,7 @@ public class CreateRoomScreen extends Screen {
     }
 
     private void previousMenuItem() {
+        endInput();
         if (selectitem == 0)
             selectitem = MAX_SELECTNUM;
         else
@@ -205,43 +203,42 @@ public class CreateRoomScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
         String optionString[] = new String[menuString.length];
-        optionString[0] = port +"";
-        optionString[1] = password;
-        optionString[2] = myname;
-        optionString[3] = "";
+        optionString[0] = islocal?"local":"external";
+        optionString[1] = port;
+        optionString[2] = password;
+        optionString[3] = myname;
         optionString[4] = "";
-        drawManager.drawCreateSetting(this, selectitem, getMyIP(), menuString, optionString);
+        optionString[5] = "";
+        String ipstr = islocal ? GameServer.getInstance().getLocalip() : GameServer.getInstance().getMyip();
+        drawManager.drawCreateSetting(this, selectitem, ipstr, menuString, optionString);
 
-        if( GameServer.getInstance().isWaiting() ) {
+        if (GameServer.getInstance().isWaiting()) {
             String waiting = "wait";
-            for( int i = 0 ; i < ((50-(50-hlinemoveper)*hlinesign) *3/101)+1 ; ++i)
+            for (int i = 0; i < ((50 - (50 - hlinemoveper) * hlinesign) * 3 / 101) + 1; ++i)
                 waiting += ".";
             drawManager.drawCenterText(this, waiting, hlinestart - 5, Color.GREEN);
-         }
+        }
+
         drawManager.drawHorizontalLine(this, hlinestart + (int) (100 * hlinemoveper / 100));
 
-        if(!messageCooldown.checkFinished()){
-            drawManager.drawCenterText(this, message, this.getHeight()/13*12, Color.GREEN);
+        if( roomPacket.isConn() ){
+            drawManager.drawCenterText(this, roomPacket.getName(), hlinestart + 50, Color.GREEN);
+        }
+        if (!messageCooldown.checkFinished()) {
+            drawManager.drawCenterText(this, message, this.getHeight() / 13 * 12, Color.GREEN);
         }
         drawManager.completeDrawing(this);
     }
 
-    public String getMyIP() {
-        String ipstr = "unknown";
-        try {
-
-            InetAddress ip = InetAddress.getLocalHost();
-            ipstr = ip.getHostAddress();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        return ipstr;
-    }
-
-    private void showMessage(String msg){
+    private void showMessage(String msg) {
         message = msg;
         messageCooldown.reset();
+    }
+    private void startInput(){
+        nowinput = true;
+    }
+    private void endInput(){
+        nowinput = false;
     }
 
 }

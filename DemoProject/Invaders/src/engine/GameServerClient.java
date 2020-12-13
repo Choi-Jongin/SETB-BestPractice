@@ -1,8 +1,8 @@
 package engine;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import screen.RoomPacket;
+
+import java.io.*;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -11,6 +11,12 @@ import java.util.Scanner;
 public class GameServerClient {
 
     Socket socket;
+    BufferedReader in = null;
+    BufferedWriter out = null;
+    ObjectInputStream ois = null;
+    ObjectOutputStream oos = null;
+    InputStream input = null;
+    OutputStream output = null;
 
 
     private boolean isConnect;
@@ -19,7 +25,7 @@ public class GameServerClient {
 
     }
 
-    public void startClient(String ip, int port) {
+    public void startClient(String ip, int port, String name, String password) {
         // 스레드 생성
         Thread thread = new Thread() {
             @Override
@@ -28,6 +34,17 @@ public class GameServerClient {
                     // 소켓 생성 및 연결 요청
                     socket = new Socket();
                     socket.connect(new InetSocketAddress(ip, port));
+                    System.out.println("[서버연결]");
+                    input = socket.getInputStream();
+                    output = socket.getOutputStream();
+                    oos = new ObjectOutputStream(output);
+                    ois = new ObjectInputStream(input);
+                    in = new BufferedReader(new InputStreamReader(input));
+                    out = new BufferedWriter(new OutputStreamWriter(output));
+
+                    System.out.println("연결정보"+name + password);
+                    oos.writeObject(new RoomPacket(name, password));
+                    oos.flush();
                 } catch (Exception e) {
                     System.out.println("[서버 통신 안됨]");
                     if (!socket.isClosed()) {
