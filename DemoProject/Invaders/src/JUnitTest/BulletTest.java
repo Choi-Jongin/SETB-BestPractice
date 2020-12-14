@@ -16,22 +16,22 @@ public class BulletTest {
 	
 	@Test
 	public void Bulletest() {
-		Bullet bullet = new Bullet(positionX, positionY, speed);
+		Bullet bullet = new Bullet(positionX, positionY, speed,null,false);
 		assertSame(Bullet.class, bullet.getClass());
 	}
 
 	@Test
 	public void setSpriteTest() {
-		Bullet plusSpeedBullet = new Bullet(positionX, positionY, 5);
+		Bullet plusSpeedBullet = new Bullet(positionX, positionY, 5,null,false);
 		plusSpeedBullet.setSprite();
 		assertEquals(SpriteType.EnemyBullet, plusSpeedBullet.getSpriteType());
-		Bullet minusSpeedBullet = new Bullet(positionX, positionY, -5);
+		Bullet minusSpeedBullet = new Bullet(positionX, positionY, -5,null,false);
 		assertEquals(SpriteType.Bullet, minusSpeedBullet.getSpriteType());
 	}
 
 	@Test
 	public void updateTest() {
-		Bullet bullet = new Bullet(positionX, positionY, speed);
+		Bullet bullet = new Bullet(positionX, positionY, speed,null,false);
 		assertEquals(100, bullet.getPositionY());
 		bullet.update(); // 100 + 3
 		assertEquals(103, bullet.getPositionY());
@@ -39,7 +39,7 @@ public class BulletTest {
 	
 	@Test
 	public void setSpeedtest() {
-		Bullet bullet = new Bullet(positionX, positionY, speed);
+		Bullet bullet = new Bullet(positionX, positionY, speed,null,false);
 		assertEquals(3, bullet.getSpeed());
 		bullet.setSpeed(6);
 		assertEquals(6, bullet.getSpeed());
@@ -47,7 +47,7 @@ public class BulletTest {
 	
 	@Test
 	public void getSpeedtest() {
-		Bullet bullet = new Bullet(positionX, positionY, speed);
+		Bullet bullet = new Bullet(positionX, positionY, speed,null,false);
 		assertEquals(3, bullet.getSpeed());
 	}
 	

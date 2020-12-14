@@ -1,5 +1,6 @@
 package JUnitTest;
 
+import static engine.IGameState.Difficult.NORMAL;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -14,7 +15,7 @@ public class ScoreScreenTest {
 	private static final int HEIGHT = 520;
 	/** Max fps of current screen. */
 	private static final int FPS = 60;
-	GameState gameState = new GameState(1, 0, 3, 0, 0);
+	GameState gameState = new GameState(1, NORMAL,0, 3, 0, 0);
 
 	@Test
 	public void testScoreScreen() {

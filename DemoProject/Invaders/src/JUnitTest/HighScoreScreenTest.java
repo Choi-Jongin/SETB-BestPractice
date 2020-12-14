@@ -2,6 +2,7 @@ package JUnitTest;
 
 import static org.junit.Assert.*;
 
+import engine.IGameState;
 import org.junit.Test;
 
 import screen.HighScoreScreen;
@@ -13,7 +14,7 @@ public class HighScoreScreenTest {
 
 	@Test
 	public void testHighScoreScreen() {
-		HighScoreScreen highscorescreen = new HighScoreScreen(WIDTH, HEIGHT, FPS);
+		HighScoreScreen highscorescreen = new HighScoreScreen(WIDTH, HEIGHT, FPS, IGameState.Difficult.NORMAL);
 		assertSame(HighScoreScreen.class, highscorescreen.getClass());
 	}
 

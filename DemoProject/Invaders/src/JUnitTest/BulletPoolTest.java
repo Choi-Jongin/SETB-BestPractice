@@ -18,21 +18,21 @@ public class BulletPoolTest {
 
 	@Test
 	public void testEmptyGetBullet() {
-		assertEquals(300-3,BulletPool.getBullet(positionX+100, positionY+100, speed+10).getPositionX());
-		assertEquals(200,BulletPool.getBullet(positionX+100, positionY+100, speed+10).getPositionY());
-		assertEquals(13,BulletPool.getBullet(positionX+100, positionY+100, speed+10).getSpeed());	
-		assertSame(Bullet.class, BulletPool.getBullet(positionX,positionY,speed).getClass());
+		assertEquals(300-3,BulletPool.getBullet(positionX+100, positionY+100, speed+10,null,false).getPositionX());
+		assertEquals(200,BulletPool.getBullet(positionX+100, positionY+100, speed+10,null,false).getPositionY());
+		assertEquals(13,BulletPool.getBullet(positionX+100, positionY+100, speed+10,null,false).getSpeed());
+		assertSame(Bullet.class, BulletPool.getBullet(positionX,positionY,speed,null,false).getClass());
 	}
 
 	@Test
 	public void testNoEmptyGetBullet() {
 		bullets = new HashSet<Bullet>();
-		bullets.add(new Bullet(positionX,positionY,speed));
+		bullets.add(new Bullet(positionX,positionY,speed,null,false));
 		BulletPool.recycle(bullets);
-		assertEquals(300-3,BulletPool.getBullet(positionX+100, positionY+100, speed+10).getPositionX());
-		assertEquals(200,BulletPool.getBullet(positionX+100, positionY+100, speed+10).getPositionY());
-		assertEquals(13,BulletPool.getBullet(positionX+100, positionY+100, speed+10).getSpeed());	
-		assertSame(Bullet.class, BulletPool.getBullet(positionX,positionY,speed).getClass());
+		assertEquals(300-3,BulletPool.getBullet(positionX+100, positionY+100, speed+10,null,false).getPositionX());
+		assertEquals(200,BulletPool.getBullet(positionX+100, positionY+100, speed+10,null,false).getPositionY());
+		assertEquals(13,BulletPool.getBullet(positionX+100, positionY+100, speed+10,null,false).getSpeed());
+		assertSame(Bullet.class, BulletPool.getBullet(positionX,positionY,speed,null,false).getClass());
 	}
 
 }

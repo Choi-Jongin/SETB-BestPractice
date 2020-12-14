@@ -39,7 +39,7 @@ public class ShipTest {
 	@Test
 	public void testShoot() {
 		Ship ship = new Ship(positionX, positionY);
-		Bullet bullet = new Bullet(200, 100 , 2);
+		Bullet bullet = new Bullet(200, 100 , 2,null,false);
 		bullets.add(bullet);
 		assertEquals(1, bullets.size());
 		assertTrue(ship.shoot(bullets));
