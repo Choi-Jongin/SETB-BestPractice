@@ -1,16 +1,12 @@
 package entity;
 
-import engine.DrawManager;
-import engine.InputManager;
-import screen.GameScreen;
-import screen.Screen;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 import java.util.Random;
 
-public class Player{
-
+public class Player implements Serializable {
+    private static final long serialVersionUID = 9L;
     private static Color[] color = new Color[]{Color.GREEN, Color.CYAN, Color.ORANGE};
     public static Color PlayerColor(int i){
         if( i >= color.length){
@@ -53,9 +49,6 @@ public class Player{
 
     private String name;
 
-    //게임 신
-    GameScreen screen;
-
     private int inputs[];
 
     public Player(){
@@ -72,8 +65,7 @@ public class Player{
         this.isClient = client;
         die = false;
     }
-    public void Init(GameScreen screen, Ship ship, int score, int lives, int[] inputs){
-        this.screen = screen;
+    public void Init(Ship ship, int score, int lives, int[] inputs){
         this.ship = ship;
         this.score = score;
         this.lives = lives;
@@ -83,17 +75,7 @@ public class Player{
     //갱신
     public void update( ){
 
-
-
         this.ship.update();
-    }
-
-    //업데이트
-    public void draw(DrawManager DM){
-        DM.drawEntity(this.ship, this.ship.getPositionX(),
-                this.ship.getPositionY());
-        DM.drawScore(screen, this.score);
-        DM.drawLives(screen, this.lives);
     }
 
     //점수 추가
@@ -165,14 +147,6 @@ public class Player{
 
     public void setShipsDestroyed(int shipsDestroyed) {
         this.shipsDestroyed = shipsDestroyed;
-    }
-
-    public GameScreen getScreen() {
-        return screen;
-    }
-
-    public void setScreen(GameScreen screen) {
-        this.screen = screen;
     }
 
     public int[] getInputs() {

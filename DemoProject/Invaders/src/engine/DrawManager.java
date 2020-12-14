@@ -7,6 +7,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +25,8 @@ import entity.Ship;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */
-public final class DrawManager {
-
+public final class DrawManager implements Serializable {
+	private static final long serialVersionUID = 10L;
 	/** Singleton instance of the class. */
 	private static DrawManager instance;
 	/** Current frame. */
@@ -33,7 +34,7 @@ public final class DrawManager {
 	/** FileManager instance. */
 	private static FileManager fileManager;
 	/** Application logger. */
-	private static Logger logger;
+	private static transient Logger logger;
 	/** Graphics context. */
 	private static Graphics graphics;
 	/** Buffer Graphics. */

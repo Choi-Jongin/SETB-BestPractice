@@ -41,7 +41,7 @@ public class EnemyShipFormationTest {
 	public void testShoot() {
 		EnemyShipFormation enemyShipFormation = new EnemyShipFormation(gameSettings);
 		bullets = new HashSet<Bullet>();
-		bullets.add(new Bullet(200, 100 , 2,null,false));
+		bullets.add(new Bullet(200, 100 , 2, enemyShipFormation.iterator().next(), false));
 		enemyShipFormation.update();
 		enemyShipFormation.shoot(bullets); // Not Shooting Cooldown, No add bullet
 		assertEquals(1, bullets.size());
@@ -65,5 +65,5 @@ public class EnemyShipFormationTest {
 		enemyShipFormation.destroy(enemyShipFormation.iterator().next()); // destroy EnemyShip
 		assertTrue(enemyShipFormation.isEmpty()); // 0 EnemyShip
 	}
-
+	
 }

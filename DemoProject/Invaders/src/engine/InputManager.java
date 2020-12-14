@@ -2,6 +2,7 @@ package engine;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.security.Key;
 
 /**
@@ -10,7 +11,7 @@ import java.security.Key;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */
-public final class InputManager implements KeyListener {
+public final class InputManager implements KeyListener , Serializable {
 
 	/** Number of recognised keys. */
 	private static final int NUM_KEYS = 256;

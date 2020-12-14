@@ -1,5 +1,6 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -17,8 +18,8 @@ import engine.DrawManager.SpriteType;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */
-public class EnemyShipFormation implements Iterable<EnemyShip> {
-
+public class EnemyShipFormation implements Iterable<EnemyShip>, Serializable {
+	private static final long serialVersionUID = 4L;
 	/** Initial position in the x-axis. */
 	private static final int INIT_POS_X = 20;
 	/** Initial position in the x-axis. */
@@ -49,7 +50,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	/** DrawManager instance. */
 	private DrawManager drawManager;
 	/** Application logger. */
-	private Logger logger;
+	private transient Logger logger;
 	/** Screen to draw ships on. */
 	private Screen screen;
 
@@ -103,7 +104,9 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		/** Movement to the bottom of the screen. */
 		DOWN
 	};
-
+	public EnemyShipFormation() {
+		System.out.println("ESF defualt");
+	}
 	/**
 	 * Constructor, sets the initial conditions.
 	 * 

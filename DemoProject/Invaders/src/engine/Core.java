@@ -1,6 +1,7 @@
 package engine;
 
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
@@ -17,7 +18,7 @@ import screen.*;
  *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  */
-public final class Core {
+public final class Core implements Serializable {
 
     /**
      * Width of current screen.
@@ -96,16 +97,16 @@ public final class Core {
     /**
      * Application logger.
      */
-    private static final Logger LOGGER = Logger.getLogger(Core.class
+    private static final transient Logger LOGGER = Logger.getLogger(Core.class
             .getSimpleName());
     /**
      * Logger handler for printing to disk.
      */
-    private static Handler fileHandler;
+    private static transient Handler fileHandler;
     /**
      * Logger handler for printing to console.
      */
-    private static ConsoleHandler consoleHandler;
+    private static transient ConsoleHandler consoleHandler;
 
 
     /**
@@ -273,6 +274,7 @@ public final class Core {
                     break;
                 case 4: /*EXIT*/ break;
                 case 5:
+                    difficult = IGameState.Difficult.NORMAL;
                     int ONSselect = 0;  //ONLINE SETTING SELECTION
                     currentScreen = new OnlineSettingScreen(width, height, FPS);
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
@@ -294,7 +296,7 @@ public final class Core {
                                 playernum = 2;
                                 input = new int[playernum][];
                                 input[0] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_SPACE};
-                                input[1] = new int[]{0, 0, 0};
+                                input[1] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_SPACE};
 
                                 players.add(new Player(((CreateRoomScreen)currentScreen).getMyname(), 0, MAX_LIVES, input[0],false));
                                 players.add(new Player(((CreateRoomScreen)currentScreen).getRoomPacket().getName(), 0, MAX_LIVES, input[1],true));
@@ -324,6 +326,8 @@ public final class Core {
                                 } while (customGameState.getMaxLives() > 0
                                         && customGameState.getLevel() <= NUM_LEVELS);
 
+                                GameServer.getInstance().stopServer();
+
                                 LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                         + " score screen at " + FPS + " fps, with a score of "
                                         + customGameState.toString());
@@ -346,10 +350,9 @@ public final class Core {
 
                                 playernum = 2;
                                 input = new int[playernum][];
-                                input[0] = new int[]{0, 0, 0};
+                                input[0] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_SPACE};
                                 input[1] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_SPACE};
 
-                                ;
                                 players.add(new Player(((ConnectRoomScreen) currentScreen).getMyname(), 0, MAX_LIVES, input[0],false));
                                 players.add(new Player(((ConnectRoomScreen) currentScreen).getMyname(), 0, MAX_LIVES, input[1],true));
 
@@ -378,6 +381,7 @@ public final class Core {
                                 } while (customGameState.getMaxLives() > 0
                                         && customGameState.getLevel() <= NUM_LEVELS);
 
+                                GameServerClient.getInstance().stopClient();
                                 LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                         + " score screen at " + FPS + " fps, with a score of "
                                         + customGameState.toString());
@@ -385,8 +389,8 @@ public final class Core {
                                 returnCode = frame.setScreen(currentScreen);
                                 LOGGER.info("Closing score screen.");
                                 break;
-
                             }
+
                         }
                     }
                     break;

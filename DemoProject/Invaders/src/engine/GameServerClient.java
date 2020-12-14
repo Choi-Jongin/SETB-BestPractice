@@ -1,5 +1,6 @@
 package engine;
 
+import screen.GamePacket;
 import screen.RoomPacket;
 
 import java.io.*;
@@ -11,8 +12,6 @@ import java.util.Scanner;
 public class GameServerClient {
 
     Socket socket;
-//    BufferedReader in = null;
-//    BufferedWriter out = null;
     ObjectInputStream ois = null;
     ObjectOutputStream oos = null;
     InputStream input = null;
@@ -40,8 +39,6 @@ public class GameServerClient {
                     input = socket.getInputStream();
                     oos = new ObjectOutputStream(output);
                     ois = new ObjectInputStream(input);
-//                    in = new BufferedReader(new InputStreamReader(input));
-//                    out = new BufferedWriter(new OutputStreamWriter(output));
                     System.out.println("연결정보"+name + password);
                     oos.writeObject(new RoomPacket(name, password));
                     oos.flush();
@@ -80,20 +77,24 @@ public class GameServerClient {
 
     public void sendObject( Object o ){
         try {
+            oos.reset();
             oos.writeObject(o);
             oos.flush();
-            if( o.toString().compareTo("0") != 0)
-            System.out.println(o.toString() + "호스트로 보냄");
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (NullPointerException e){
+            System.out.println("아웃풋 미생성");
         }catch (Exception e){
-            System.out.println(e.getMessage());}
+            e.printStackTrace();
+        }
     }
 
     public Object readObject() {
         try {
             Object o = ois.readObject();
             return o;
+        }catch (WriteAbortedException e) {
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

@@ -1,6 +1,9 @@
 package JUnitTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -32,5 +35,12 @@ public class ScreenTest {
 		Screen screen = new Screen(WIDTH, HEIGHT, FPS);
 		assertEquals(HEIGHT, screen.getHeight());
 	}
-
+	
+	@Test
+	public void testPause() {
+		Screen screen = new Screen(WIDTH, HEIGHT, FPS);
+		assertFalse(screen.isPause());
+		screen.setPause(true);
+		assertTrue(screen.isPause());
+	}
 }
