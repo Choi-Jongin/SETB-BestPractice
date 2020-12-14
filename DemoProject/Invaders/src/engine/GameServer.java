@@ -19,9 +19,6 @@ public class GameServer {
     private ServerSocket serverSocket;
     private ArrayList<Socket> connections = new ArrayList<Socket>();
 
-//    BufferedReader in = null;
-//    BufferedWriter out = null;
-
     ObjectInputStream ois = null;
     ObjectOutputStream oos = null;
 
@@ -66,10 +63,8 @@ public class GameServer {
                     System.out.println("[연결 수락: " + socket.getRemoteSocketAddress() + ": " + Thread.currentThread().getName() + "]");
                     output = socket.getOutputStream();
                     input = socket.getInputStream();
-                    oos = new ObjectOutputStream(output);
                     ois = new ObjectInputStream(input);
-//                    in = new BufferedReader(new InputStreamReader(input));
-//                    out = new BufferedWriter(new OutputStreamWriter(output));
+                    oos = new ObjectOutputStream(output);
                     roomPacket = (RoomPacket) ois.readObject();
                     if( roomPacket.getPassword().compareTo(password) != 0) {
                         System.out.println("비밀번호 미일치");
@@ -104,20 +99,22 @@ public class GameServer {
 
     public void sendObject( Object o ){
         try {
+            oos.reset();
             oos.writeObject(o);
             oos.flush();
+        } catch (NotSerializableException e){
+            System.out.println(e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }catch (NullPointerException e){
             System.out.println("아웃풋 미생성");
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
 
     public Object readObject() {
         try {
-
             Object o = ois.readObject();
             return o;
         } catch (ClassNotFoundException e) {

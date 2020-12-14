@@ -95,34 +95,51 @@ public class CustomGameScreen extends IGameScreen {
     protected final void update() {
         super.update();
 
-        if (this.inputDelay.checkFinished() && !this.levelFinished) {
-
-            if( isP2PCLIENT() ){
-
-                Ship ship = players.get(1).getShip();
-                boolean isRightBorder = ship.getPositionX()
-                        + ship.getWidth() + ship.getSpeed() > this.width - 1;
-                boolean isLeftBorder = ship.getPositionX()
-                        - ship.getSpeed() < 1;
+        if( isP2PCLIENT() ) {
+            Player p = players.get(1);
+            Ship ship = p.getShip();
+            if (this.inputDelay.checkFinished() && !this.levelFinished) {
                 int dir = 0;
-                if (inputManager.isKeyDown(players.get(1).getInputs()[0]) && !isRightBorder) {
-                    dir += MovePacket.RIGHT;
+                if( !isPause() ) {
+                    boolean isRightBorder = ship.getPositionX()
+                            + ship.getWidth() + ship.getSpeed() > this.width - 1;
+                    boolean isLeftBorder = ship.getPositionX()
+                            - ship.getSpeed() < 1;
+                    if (inputManager.isKeyDown(p.getInputs()[0]) && !isRightBorder) {
+                        dir += MovePacket.RIGHT;
+                    }
+                    if (inputManager.isKeyDown(p.getInputs()[1]) && !isLeftBorder) {
+                        dir += MovePacket.LEFT;
+                    }
+                    if (inputManager.isKeyDown(p.getInputs()[2])) {
+                        dir += MovePacket.ATTACK;
+                    }
+                    GameServerClient.getInstance().sendObject(new MovePacket(dir));
                 }
-                if (inputManager.isKeyDown(players.get(1).getInputs()[1]) && !isLeftBorder) {
-                    dir += MovePacket.LEFT;
-                }
-                if (inputManager.isKeyDown(players.get(1).getInputs()[2]))
-                {
-                    dir += MovePacket.ATTACK;
-                }
-
-                GameServerClient.getInstance().sendObject(new MovePacket(dir));
-
-                draw();
-
-                GameServerClient.getInstance().readObject();
-                return;
             }
+            try {
+                GamePacket gamePacket = (GamePacket) GameServerClient.getInstance().readObject();
+                players = gamePacket.getPlayers();
+                enemyShipSpecial = gamePacket.getEs();
+                enemyShipFormation = gamePacket.getEsf();
+                bullets = gamePacket.getBullets();
+                if (gamePacket.hasMsg("finish")) {
+                    this.isRunning = false;
+                }
+                if (gamePacket.hasMsg("pause")) {
+                    setPause(true);
+                }
+                if (gamePacket.hasMsg("pause cancel")) {
+                    setPause(false);
+                }
+            } catch (NullPointerException e) {
+                System.out.println("gamePacket is null " + e.getMessage());
+            }
+            draw();
+            return;
+        }
+
+        if (this.inputDelay.checkFinished() && !this.levelFinished) {
 
             //////////치트 영역///////////
 
@@ -147,6 +164,7 @@ public class CustomGameScreen extends IGameScreen {
                 if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE) && pauseDelay.checkFinished()) {
                     setPause(false);
                     this.pauseDelay.reset();
+                    GameServer.getInstance().sendObject(new GamePacket(players,enemyShipSpecial,enemyShipFormation,bullets,new GMSG[]{new GMSG("pause cancel")}));
                 }
                 draw();
                 return;
@@ -154,6 +172,7 @@ public class CustomGameScreen extends IGameScreen {
                 if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE) && pauseDelay.checkFinished()) {
                     setPause(true);
                     this.pauseDelay.reset();
+                    GameServer.getInstance().sendObject(new GamePacket(players,enemyShipSpecial,enemyShipFormation,bullets,new GMSG[]{new GMSG("pause")}));
                     return;
                 }
             }
@@ -218,19 +237,23 @@ public class CustomGameScreen extends IGameScreen {
         manageCollisions();
         cleanBullets();
         draw();
-
-
+        ArrayList<GMSG> msgs = new ArrayList<GMSG>();
         if ((this.enemyShipFormation.isEmpty() || allPlayerDie() )
                 && !this.levelFinished) {
             this.levelFinished = true;
             this.screenFinishedCooldown.reset();
         }
 
-        if (this.levelFinished && this.screenFinishedCooldown.checkFinished())
+        if (this.levelFinished && this.screenFinishedCooldown.checkFinished()) {
             this.isRunning = false;
-
-        GameServer.getInstance().sendObject(new GamePacket());
-
+            msgs.add(new GMSG("finish"));
+        }
+        if( msgs.size() == 0)
+            msgs.add(new GMSG("regular"));
+        if( isP2PHOST()) {
+            GamePacket gp = new GamePacket(players, enemyShipSpecial, enemyShipFormation, bullets, msgs.toArray(new GMSG[msgs.size()]));
+            GameServer.getInstance().sendObject(gp);
+        }
     }
 
     /**
