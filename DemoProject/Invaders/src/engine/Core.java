@@ -326,6 +326,8 @@ public final class Core implements Serializable {
                                 } while (customGameState.getMaxLives() > 0
                                         && customGameState.getLevel() <= NUM_LEVELS);
 
+                                GameServer.getInstance().stopServer();
+
                                 LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                         + " score screen at " + FPS + " fps, with a score of "
                                         + customGameState.toString());
@@ -379,6 +381,7 @@ public final class Core implements Serializable {
                                 } while (customGameState.getMaxLives() > 0
                                         && customGameState.getLevel() <= NUM_LEVELS);
 
+                                GameServerClient.getInstance().stopClient();
                                 LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                         + " score screen at " + FPS + " fps, with a score of "
                                         + customGameState.toString());
@@ -386,8 +389,8 @@ public final class Core implements Serializable {
                                 returnCode = frame.setScreen(currentScreen);
                                 LOGGER.info("Closing score screen.");
                                 break;
-
                             }
+
                         }
                     }
                     break;

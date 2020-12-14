@@ -20,43 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="721bb949-8eed-4dce-8018-2433ac848f35" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/Cooldown.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/Cooldown.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Invaders/src/engine/Core.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/Core.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/DrawManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/DrawManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/FileManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/GameServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/GameServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/GameServerClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/GameServerClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/GameSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/GameSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/GameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/IGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/IGameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/engine/InputManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/engine/InputManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/entity/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/entity/Bullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/entity/EnemyShip.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/entity/EnemyShip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/entity/EnemyShipFormation.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/entity/EnemyShipFormation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/entity/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/entity/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/entity/Ship.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/entity/Ship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/screen/CustomGameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/CustomGameScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/screen/GamePacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/GamePacket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/screen/RoomPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/RoomPacket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Invaders/src/screen/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/Screen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Invaders/src/screen/CustomScoreScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Invaders/src/screen/CustomScoreScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log" beforeDir="false" afterPath="$PROJECT_DIR$/log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log.1" beforeDir="false" afterPath="$PROJECT_DIR$/log.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/engine/Cooldown.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/engine/Cooldown.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/engine/DrawManager$SpriteType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/engine/DrawManager$SpriteType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/engine/DrawManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/engine/DrawManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/entity/Bullet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/entity/Bullet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/entity/EnemyShip$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/entity/EnemyShip$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/entity/EnemyShip.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/entity/EnemyShip.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/entity/EnemyShipFormation$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/entity/EnemyShipFormation$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/entity/EnemyShipFormation$Direction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/entity/EnemyShipFormation$Direction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/entity/EnemyShipFormation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/entity/EnemyShipFormation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/entity/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/entity/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/entity/Ship.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/entity/Ship.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/screen/CustomGameScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/screen/CustomGameScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DemoProject/screen/GamePacket.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DemoProject/screen/GamePacket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/normalscores" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/normalscores" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +102,7 @@
       <workItem from="1607696685350" duration="9178000" />
       <workItem from="1607706777374" duration="5144000" />
       <workItem from="1607915913389" duration="3361000" />
-      <workItem from="1607919408219" duration="8091000" />
+      <workItem from="1607919408219" duration="8732000" />
     </task>
     <servers />
   </component>
@@ -177,22 +146,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1607685978093" />
-    <state width="1877" height="152" key="GridCell.Tab.0.bottom" timestamp="1607927379201">
+    <state width="1877" height="152" key="GridCell.Tab.0.bottom" timestamp="1607928120929">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="152" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607927379201" />
-    <state width="1877" height="152" key="GridCell.Tab.0.center" timestamp="1607927379201">
+    <state width="1877" height="152" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607928120929" />
+    <state width="1877" height="152" key="GridCell.Tab.0.center" timestamp="1607928120929">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="152" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607927379201" />
-    <state width="1877" height="152" key="GridCell.Tab.0.left" timestamp="1607927379200">
+    <state width="1877" height="152" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607928120929" />
+    <state width="1877" height="152" key="GridCell.Tab.0.left" timestamp="1607928120928">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="152" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607927379200" />
-    <state width="1877" height="152" key="GridCell.Tab.0.right" timestamp="1607927379201">
+    <state width="1877" height="152" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607928120928" />
+    <state width="1877" height="152" key="GridCell.Tab.0.right" timestamp="1607928120929">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="152" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607927379201" />
+    <state width="1877" height="152" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607928120929" />
     <state width="1877" height="379" key="GridCell.Tab.1.bottom" timestamp="1607925768059">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
