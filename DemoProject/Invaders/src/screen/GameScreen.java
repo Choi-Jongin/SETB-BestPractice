@@ -110,6 +110,24 @@ public class GameScreen extends IGameScreen {
 				}
 			}
 
+			//////////치트 영역///////////
+
+			//점수 증가
+			if (inputManager.isKeyDown(KeyEvent.VK_1)) {
+				score += 100;
+			}
+			//목숨 감소
+			if (inputManager.isKeyDown(KeyEvent.VK_2)) {
+					lives -= 1;
+			}
+			//레벨 클리어
+			if (inputManager.isKeyDown(KeyEvent.VK_3)) {
+				this.levelFinished = true;
+				this.screenFinishedCooldown.reset();
+			}
+			///////////치트 끝//////////
+
+
 			if (!this.ship.isDestroyed()) {
 				boolean moveRight = inputManager.isKeyDown(KeyEvent.VK_RIGHT)
 						|| inputManager.isKeyDown(KeyEvent.VK_D);

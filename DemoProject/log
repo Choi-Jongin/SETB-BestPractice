@@ -1,36 +1,24 @@
-[INFO|3:42:37]: Started loading resources. 
-[FINE|3:42:37]: Sprite Ship loaded. 
-[FINE|3:42:37]: Sprite ShipDestroyed loaded. 
-[FINE|3:42:37]: Sprite Bullet loaded. 
-[FINE|3:42:37]: Sprite EnemyBullet loaded. 
-[FINE|3:42:37]: Sprite EnemyShipA1 loaded. 
-[FINE|3:42:37]: Sprite EnemyShipA2 loaded. 
-[FINE|3:42:37]: Sprite EnemyShipB1 loaded. 
-[FINE|3:42:37]: Sprite EnemyShipB2 loaded. 
-[FINE|3:42:37]: Sprite EnemyShipC1 loaded. 
-[FINE|3:42:37]: Sprite EnemyShipC2 loaded. 
-[FINE|3:42:37]: Sprite EnemyShipSpecial loaded. 
-[FINE|3:42:37]: Sprite Explosion loaded. 
-[INFO|3:42:37]: Finished loading the sprites. 
-[INFO|3:42:37]: Finished loading the fonts. 
-[INFO|3:42:37]: Starting 448x520 title screen at 60 fps. 
-[INFO|3:42:39]: Closing title screen. 
-[INFO|3:42:39]: Starting 448x520 Online Setting screen at 60 fps. 
-[INFO|3:42:39]: Closing Online Setting screen. 
-[INFO|3:42:39]: Starting 448x520 Create Room at 60 fps 
-[INFO|3:42:52]: Closing Create Room screen. 
-[INFO|3:42:52]: Starting 448x520 game screen at 60 fps. 
-[INFO|3:42:52]: Initializing 5x4 ship formation in (20,100) 
-[INFO|3:43:03]: Screen cleared with player Player1score of  
-[INFO|3:43:03]: Screen cleared with player Player2score of  
-[INFO|3:43:03]: Closing game screen. 
-[INFO|3:43:03]: Starting 448x520 score screen at 60 fps, with a score of [Player1: 0 lives remaining, 0 bullets shot and 0 ships destroyed.]
-[Player2: 0 lives remaining, 0 bullets shot and 0 ships destroyed.]
- 
-[INFO|3:43:03]: Loading normalscores high scores. 
-[INFO|3:43:15]: Saving normalscores high scores. 
-[INFO|3:43:20]: Closing score screen. 
-[INFO|3:43:20]: Loading normalscores high scores. 
-[INFO|3:43:20]: Starting 448x520 high score screen at 60 fps. 
-[INFO|3:43:23]: Closing high score screen. 
-[INFO|3:43:23]: Starting 448x520 title screen at 60 fps. 
+[INFO|3:53:09]: Started loading resources. 
+[FINE|3:53:09]: Sprite Ship loaded. 
+[FINE|3:53:09]: Sprite ShipDestroyed loaded. 
+[FINE|3:53:09]: Sprite Bullet loaded. 
+[FINE|3:53:09]: Sprite EnemyBullet loaded. 
+[FINE|3:53:09]: Sprite EnemyShipA1 loaded. 
+[FINE|3:53:09]: Sprite EnemyShipA2 loaded. 
+[FINE|3:53:09]: Sprite EnemyShipB1 loaded. 
+[FINE|3:53:09]: Sprite EnemyShipB2 loaded. 
+[FINE|3:53:09]: Sprite EnemyShipC1 loaded. 
+[FINE|3:53:09]: Sprite EnemyShipC2 loaded. 
+[FINE|3:53:09]: Sprite EnemyShipSpecial loaded. 
+[FINE|3:53:09]: Sprite Explosion loaded. 
+[INFO|3:53:09]: Finished loading the sprites. 
+[INFO|3:53:09]: Finished loading the fonts. 
+[INFO|3:53:09]: Starting 448x520 title screen at 60 fps. 
+[INFO|3:53:16]: Closing title screen. 
+[INFO|3:53:16]: Starting 448x520 Online Setting screen at 60 fps. 
+[INFO|3:53:18]: Closing Online Setting screen. 
+[INFO|3:53:18]: Starting 448x520 Create Room at 60 fps 
+[INFO|3:53:26]: Closing Create Room screen. 
+[INFO|3:53:26]: Starting 448x520 game screen at 60 fps. 
+[INFO|3:53:26]: Initializing 5x4 ship formation in (20,100) 
+[INFO|3:53:36]: Hit on Player1 ship, 2 lives remaining. 
