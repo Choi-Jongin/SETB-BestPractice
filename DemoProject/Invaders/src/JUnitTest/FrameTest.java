@@ -13,7 +13,7 @@ public class FrameTest {
 	@Test
 	public void testGetWidth() {
 		Frame frame = new Frame(width, height);
-		assertEquals(86,frame.getWidth());
+		assertEquals(84,frame.getWidth());
 	}
 
 	@Test

@@ -2,6 +2,7 @@ package JUnitTest;
 
 import static org.junit.Assert.*;
 
+import java.awt.Color;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,6 +21,8 @@ public class ShipTest {
 	public void testShip() {
 		Ship ship = new Ship(positionX, positionY);
 		assertSame(Ship.class, ship.getClass());
+		Ship colorShip = new Ship(positionX, positionY, Color.BLUE);
+		assertSame(Ship.class, colorShip.getClass());
 	}
 
 	@Test
@@ -39,7 +42,7 @@ public class ShipTest {
 	@Test
 	public void testShoot() {
 		Ship ship = new Ship(positionX, positionY);
-		Bullet bullet = new Bullet(200, 100 , 2,null,false);
+		Bullet bullet = new Bullet(200, 100 , 2, ship, false);
 		bullets.add(bullet);
 		assertEquals(1, bullets.size());
 		assertTrue(ship.shoot(bullets));

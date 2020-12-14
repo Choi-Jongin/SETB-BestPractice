@@ -17,7 +17,7 @@ public class CustomGameState extends IGameState{
     private int level;
     private MultiMethod method;
 
-    //플레이어
+    //�뵆�젅�씠�뼱
     ArrayList<Player> players;
 
     public CustomGameState(final int level, Difficult difficult,ArrayList<Player> players, MultiMethod method) {

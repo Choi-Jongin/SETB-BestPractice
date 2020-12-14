@@ -34,7 +34,7 @@ public final class FileManager {
 	/** Singleton instance of the class. */
 	private static FileManager instance;
 	/** Application logger. */
-	private static Logger logger;
+	private static transient Logger logger;
 	/** Max number of high scores. */
 	private static final int MAX_SCORES = 7;
 

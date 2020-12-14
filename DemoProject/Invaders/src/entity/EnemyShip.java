@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import engine.Cooldown;
 import engine.Core;
@@ -12,8 +13,8 @@ import engine.DrawManager.SpriteType;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */
-public class EnemyShip extends Entity {
-	
+public class EnemyShip extends Entity implements Serializable {
+	private static final long serialVersionUID = 5L;
 	/** Point value of a type A enemy. */
 	private static final int A_TYPE_POINTS = 10;
 	/** Point value of a type B enemy. */

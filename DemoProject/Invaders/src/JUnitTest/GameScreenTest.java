@@ -1,12 +1,12 @@
 package JUnitTest;
 
-import static engine.IGameState.Difficult.NORMAL;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 import engine.GameSettings;
 import engine.GameState;
+import engine.IGameState.Difficult;
 import screen.GameScreen;
 
 public class GameScreenTest {
@@ -19,7 +19,8 @@ public class GameScreenTest {
 	private static final int EXTRA_LIFE_FRECUENCY = 3;
 	private static final GameSettings gameSettings =
 			new GameSettings(5, 4, 60, 2000);
-	private static final GameState gameState = new GameState(1, NORMAL, 0, MAX_LIVES, 0, 0);
+	private static Difficult difficult = Difficult.NORMAL;
+	private static final GameState gameState = new GameState(1, difficult, 0, MAX_LIVES, 0, 0);
 	private static final boolean bonusLife = gameState.getLevel()
 							% EXTRA_LIFE_FRECUENCY == 0
 							&& gameState.getLivesRemaining() < MAX_LIVES;

@@ -6,7 +6,7 @@ package engine;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */
-public class GameState extends IGameState{
+public class GameState extends IGameState {
 
 	/** Current score. */
 	private int score;

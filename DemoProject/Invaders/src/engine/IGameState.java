@@ -1,6 +1,8 @@
 package engine;
 
-public abstract class IGameState {
+import java.io.Serializable;
+
+public abstract class IGameState  implements Serializable {
 
     public enum Difficult{EASY, NORMAL, HARD};
 

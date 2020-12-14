@@ -18,7 +18,6 @@ public class EntityTest {
 
 	@Test
 	public void testEntity() {
-
 		Entity entity = new Entity(positionX, positionY, width, height, color);
 		assertSame(Entity.class, entity.getClass());
 	}
