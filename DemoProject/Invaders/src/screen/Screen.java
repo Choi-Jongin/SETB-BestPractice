@@ -1,6 +1,7 @@
 package screen;
 
 import java.awt.Insets;
+import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -15,7 +16,7 @@ import engine.InputManager;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */
-public class Screen {
+public class Screen implements Serializable {
 
 	/**
 	 * Milliseconds until the screen accepts user input.
@@ -33,7 +34,7 @@ public class Screen {
 	/**
 	 * Application logger.
 	 */
-	protected Logger logger;
+	protected transient Logger logger;
 
 	/**
 	 * Screen width.

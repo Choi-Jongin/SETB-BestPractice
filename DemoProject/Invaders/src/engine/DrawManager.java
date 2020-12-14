@@ -7,12 +7,14 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import entity.Player;
+import screen.OnlineSettingScreen;
 import screen.Screen;
 import entity.Entity;
 import entity.Ship;
@@ -23,8 +25,8 @@ import entity.Ship;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */
-public final class DrawManager {
-
+public final class DrawManager implements Serializable {
+	private static final long serialVersionUID = 10L;
 	/** Singleton instance of the class. */
 	private static DrawManager instance;
 	/** Current frame. */
@@ -32,7 +34,7 @@ public final class DrawManager {
 	/** FileManager instance. */
 	private static FileManager fileManager;
 	/** Application logger. */
-	private static Logger logger;
+	private static transient Logger logger;
 	/** Graphics context. */
 	private static Graphics graphics;
 	/** Buffer Graphics. */
@@ -270,7 +272,7 @@ public final class DrawManager {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		backBufferGraphics.drawString(Integer.toString(lives), 20, 25+25*player);
-		Ship dummyShip = new Ship(0, 0,  Player.color[player]);
+		Ship dummyShip = new Ship(0, 0,  Player.PlayerColor(player));
 		for (int i = 0; i < lives; i++)
 			drawEntity(dummyShip, 40 + 35 * i, 10+25*player);
 	}
@@ -319,6 +321,66 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.GREEN);
 		drawCenteredBigString(screen, titleString, screen.getHeight() / 3);
 	}
+
+	public void drawOnlineSettingTitle(final Screen screen) {
+
+		String titleString = "ONLINE";
+		String instructionsString =
+				"arrows, confirm with space";
+
+
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, titleString, screen.getHeight() / 3);
+
+		backBufferGraphics.setColor(Color.GRAY);
+		drawCenteredRegularString(screen, instructionsString,
+				screen.getHeight() / 2);
+	}
+
+	public void drawCreateSetting(final Screen screen, final int selection, String host,String[] menustrings, String[] optstrings) {
+		String titleString = "CREATE ROOM";
+		String instructionsString =
+				"arrows, confirm or edit with space";
+		String menuStrings[] = new String[menustrings.length];
+		for(int i = 0 ; i < menuStrings.length ; i++)
+			menuStrings[i] = menustrings[i]+optstrings[i];
+
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, titleString, screen.getHeight() / 10 * 1);
+		drawCenteredBigString(screen, "HOST IP : "+host, screen.getHeight() / 10 * 2);
+
+		backBufferGraphics.setColor(Color.GREEN);
+		for( int i = 0 ; i < menuStrings.length ; i++){
+			if( i == selection )
+				continue;
+			drawCenteredRegularString(screen, menuStrings[i], screen.getHeight() / 10*4 + fontRegularMetrics.getHeight() * i);
+		}
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, menuStrings[selection], screen.getHeight() / 10*4 + fontRegularMetrics.getHeight()*selection);
+	}
+
+
+	public void drawConnectSetting(final Screen screen, final int selection,String[] menustrings, String[] optstrings) {
+		String titleString = "CONNECT ROOM";
+		String instructionsString =
+				"arrows, confirm or edit with space";
+		String menuStrings[] = new String[menustrings.length];
+		for(int i = 0 ; i < menuStrings.length ; i++)
+			menuStrings[i] = menustrings[i]+optstrings[i];
+
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, titleString, screen.getHeight() / 10 * 1);
+
+		backBufferGraphics.setColor(Color.GREEN);
+		for( int i = 0 ; i < menuStrings.length ; i++){
+			if( i == selection )
+				continue;
+			drawCenteredRegularString(screen, menuStrings[i], screen.getHeight() / 10*4 + fontRegularMetrics.getHeight() * i);
+		}
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, menuStrings[selection], screen.getHeight() / 10*4 + fontRegularMetrics.getHeight()*selection);
+	}
+
 //	public void drawMenu(final Screen screen, final int option) {
 //		String playString = "Play";
 //		String highScoresString = "High scores";
@@ -345,7 +407,7 @@ public final class DrawManager {
 //	}
 
 	public void drawMenu(final Screen screen, final int selection) {
-		String menuStrings[] = {"1P Play", "2P Play", "Setting","High scores", "exit"};
+		String menuStrings[] = {"1P Play", "2P Play", "ONLINE", "Setting","High scores", "exit"};
 
 		backBufferGraphics.setColor(Color.GREEN);
 		for( int i = 0 ; i < menuStrings.length ; i++){

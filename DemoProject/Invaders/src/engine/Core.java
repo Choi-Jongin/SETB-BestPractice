@@ -1,6 +1,7 @@
 package engine;
 
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
@@ -17,7 +18,7 @@ import screen.*;
  *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  */
-public final class Core {
+public final class Core implements Serializable {
 
     /**
      * Width of current screen.
@@ -96,16 +97,16 @@ public final class Core {
     /**
      * Application logger.
      */
-    private static final Logger LOGGER = Logger.getLogger(Core.class
+    private static final transient Logger LOGGER = Logger.getLogger(Core.class
             .getSimpleName());
     /**
      * Logger handler for printing to disk.
      */
-    private static Handler fileHandler;
+    private static transient Handler fileHandler;
     /**
      * Logger handler for printing to console.
      */
-    private static ConsoleHandler consoleHandler;
+    private static transient ConsoleHandler consoleHandler;
 
 
     /**
@@ -149,7 +150,12 @@ public final class Core {
         int returnCode = -1;
         int startlives = MAX_LIVES;
         IGameState.Difficult difficult = IGameState.Difficult.NORMAL;
+        CustomGameState customGameState = null;
+        ArrayList<Player> players = new ArrayList<Player>();
+        int playernum = 6;
+        int input[][] = new int[playernum][];
         do {
+
             switch (returnCode) {
                 case -1:
                     // Main menu.
@@ -202,13 +208,15 @@ public final class Core {
                     LOGGER.info("Closing score screen.");
                     break;
                 case 1:
-                    // CustomGame & score.
-                    CustomGameState customGameState;
-                    int playernum = 2;
-                    ArrayList<Player> players = new ArrayList<Player>();
-                    int input[][] = new int[playernum][];
+                    // 2P CustomGame & score.
+                    playernum = 2;
+                    input = new int[playernum][];
                     input[0] = new int[]{KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_W};
                     input[1] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_UP};
+//                    input[2] = new int[]{KeyEvent.VK_NUMPAD3, KeyEvent.VK_NUMPAD1, KeyEvent.VK_NUMPAD5};
+//                    for( int i = 3 ; i < playernum ;++i)
+//                        input[i] = new int[]{KeyEvent.VK_NUMPAD3, KeyEvent.VK_NUMPAD1, KeyEvent.VK_NUMPAD5};
+
                     for( int i = 0 ; i < playernum ; i++)
                         players.add( new Player("Player"+(i+1), 0,MAX_LIVES, input[i]));
                     startlives = MAX_LIVES;
@@ -244,15 +252,15 @@ public final class Core {
                     LOGGER.info("Closing score screen.");
                     break;
                 case 2:
-                    // High scores.
+                    // Settings.
                     currentScreen = new SettingScreen(width, height, FPS, difficult);
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-                            + " high score screen at " + FPS + " fps.");
+                            + " Settings Screen at " + FPS + " fps.");
                     returnCode = frame.setScreen(currentScreen);
                     difficult = ((SettingScreen)currentScreen).getDifficult();
                     for( GameSettings gs : gameSettings)
                                gs.setDifficult(difficult);
-                    LOGGER.info("Closing high score screen.");
+                    LOGGER.info("Closing Settings Screen screen.");
                     break;
                 case 3:
                     // High scores.
@@ -264,6 +272,129 @@ public final class Core {
                     LOGGER.info("Closing high score screen.");
 
                     break;
+                case 4: /*EXIT*/ break;
+                case 5:
+                    difficult = IGameState.Difficult.NORMAL;
+                    int ONSselect = 0;  //ONLINE SETTING SELECTION
+                    currentScreen = new OnlineSettingScreen(width, height, FPS);
+                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                            + " Online Setting screen at " + FPS + " fps.");
+                    returnCode = frame.setScreen(currentScreen);
+                    LOGGER.info("Closing Online Setting screen.");
+                    ONSselect = ((OnlineSettingScreen)currentScreen).getSelectitem();
+                    switch (ONSselect){
+                        //Create Room
+                        case 0 -> {
+                            LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                    + " Create Room at " + FPS + " fps");
+                            currentScreen = new CreateRoomScreen(width, height, FPS);
+                            returnCode = frame.setScreen(currentScreen);
+                            LOGGER.info("Closing Create Room screen.");
+
+                            if(returnCode == 1) {
+
+                                playernum = 2;
+                                input = new int[playernum][];
+                                input[0] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_SPACE};
+                                input[1] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_SPACE};
+
+                                players.add(new Player(((CreateRoomScreen)currentScreen).getMyname(), 0, MAX_LIVES, input[0],false));
+                                players.add(new Player(((CreateRoomScreen)currentScreen).getRoomPacket().getName(), 0, MAX_LIVES, input[1],true));
+
+                                startlives = MAX_LIVES;
+                                if (difficult == IGameState.Difficult.EASY) startlives += 2;
+                                if (difficult == IGameState.Difficult.HARD) startlives -= 2;
+                                customGameState = new CustomGameState(1, difficult, players, CustomGameState.MultiMethod.P2PHOST);
+
+                                do {
+                                    // One extra live every few levels.
+                                    boolean bonusLife = customGameState.getLevel()
+                                            % EXTRA_LIFE_FRECUENCY == 0
+                                            && customGameState.getMinLives() < MAX_LIVES;
+
+                                    currentScreen = new CustomGameScreen(customGameState,
+                                            gameSettings.get(customGameState.getLevel() - 1),
+                                            bonusLife, MAX_LIVES, width, height, FPS, 2);
+                                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                            + " game screen at " + FPS + " fps.");
+                                    frame.setScreen(currentScreen);
+                                    LOGGER.info("Closing game screen.");
+
+                                    customGameState = ((CustomGameScreen) currentScreen).getGameState();
+                                    customGameState = new CustomGameState(customGameState.getLevel() + 1, customGameState.getDifficult(), customGameState.getPlayers(), customGameState.getMethod());
+
+                                } while (customGameState.getMaxLives() > 0
+                                        && customGameState.getLevel() <= NUM_LEVELS);
+
+                                GameServer.getInstance().stopServer();
+
+                                LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                        + " score screen at " + FPS + " fps, with a score of "
+                                        + customGameState.toString());
+                                currentScreen = new CustomScoreScreen(width, height, FPS, customGameState);
+                                returnCode = frame.setScreen(currentScreen);
+                                LOGGER.info("Closing score screen.");
+                                break;
+                            }
+
+                        }
+                        //ConnectRoom
+                        case 1 -> {
+                            LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                    + " Connect Room at " + FPS + " fps");
+                            currentScreen = new ConnectRoomScreen(width, height, FPS);
+                            returnCode = frame.setScreen(currentScreen);
+                            LOGGER.info("Closing Connect Room screen.");
+
+                            if(returnCode == 1) {
+
+                                playernum = 2;
+                                input = new int[playernum][];
+                                input[0] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_SPACE};
+                                input[1] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_SPACE};
+
+                                players.add(new Player(((ConnectRoomScreen) currentScreen).getMyname(), 0, MAX_LIVES, input[0],false));
+                                players.add(new Player(((ConnectRoomScreen) currentScreen).getMyname(), 0, MAX_LIVES, input[1],true));
+
+                                startlives = MAX_LIVES;
+                                if (difficult == IGameState.Difficult.EASY) startlives += 2;
+                                if (difficult == IGameState.Difficult.HARD) startlives -= 2;
+                                customGameState = new CustomGameState(1, difficult, players, CustomGameState.MultiMethod.P2PCLIENT);
+
+                                do {
+                                    // One extra live every few levels.
+                                    boolean bonusLife = customGameState.getLevel()
+                                            % EXTRA_LIFE_FRECUENCY == 0
+                                            && customGameState.getMinLives() < MAX_LIVES;
+
+                                    currentScreen = new CustomGameScreen(customGameState,
+                                            gameSettings.get(customGameState.getLevel() - 1),
+                                            bonusLife, MAX_LIVES, width, height, FPS, 2);
+                                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                            + " game screen at " + FPS + " fps.");
+                                    frame.setScreen(currentScreen);
+                                    LOGGER.info("Closing game screen.");
+
+                                    customGameState = ((CustomGameScreen) currentScreen).getGameState();
+                                    customGameState = new CustomGameState(customGameState.getLevel() + 1, customGameState.getDifficult(), customGameState.getPlayers(), customGameState.getMethod());
+
+                                } while (customGameState.getMaxLives() > 0
+                                        && customGameState.getLevel() <= NUM_LEVELS);
+
+                                GameServerClient.getInstance().stopClient();
+                                LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                        + " score screen at " + FPS + " fps, with a score of "
+                                        + customGameState.toString());
+                                currentScreen = new CustomScoreScreen(width, height, FPS, customGameState);
+                                returnCode = frame.setScreen(currentScreen);
+                                LOGGER.info("Closing score screen.");
+                                break;
+                            }
+
+                        }
+                    }
+                    break;
+
                 default:
                     break;
             }

@@ -1,16 +1,25 @@
 package entity;
 
-import engine.DrawManager;
-import engine.InputManager;
-import screen.GameScreen;
-import screen.Screen;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
+import java.util.Random;
 
-public class Player{
-
-    public static Color[] color = new Color[]{Color.GREEN, Color.CYAN};
+public class Player implements Serializable {
+    private static final long serialVersionUID = 9L;
+    private static Color[] color = new Color[]{Color.GREEN, Color.CYAN, Color.ORANGE};
+    public static Color PlayerColor(int i){
+        if( i >= color.length){
+            Random random = new Random();
+            Color temp[] = new Color[color.length+1];
+            int index = 0;
+            for(index = 0 ; index < color.length; index++)
+                temp[index] = color[index];
+            temp[index] = new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255));
+            color = temp;
+        }
+        return color[i];
+    }
 
     /** Player's ship. */
     private Ship ship;
@@ -25,6 +34,11 @@ public class Player{
 
     private boolean die;
 
+    public boolean isClient() {
+        return isClient;
+    }
+    private boolean isClient = false;
+
     public String getName() {
         return name;
     }
@@ -35,23 +49,23 @@ public class Player{
 
     private String name;
 
-    //게임 신
-    GameScreen screen;
-
     private int inputs[];
 
     public Player(){
         this("Player1",0,3,new int[]{KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_SPACE});
     }
     public Player(String name, int score, int lives, int[] inputs){
+        this(name,score,lives,inputs,false);
+    }
+    public Player(String name, int score, int lives, int[] inputs, boolean client){
         this.name = name;
         this.score = score;
         this.lives = lives;
         this.inputs = inputs;
+        this.isClient = client;
         die = false;
     }
-    public void Init(GameScreen screen, Ship ship, int score, int lives, int[] inputs){
-        this.screen = screen;
+    public void Init(Ship ship, int score, int lives, int[] inputs){
         this.ship = ship;
         this.score = score;
         this.lives = lives;
@@ -61,17 +75,7 @@ public class Player{
     //갱신
     public void update( ){
 
-
-
         this.ship.update();
-    }
-
-    //업데이트
-    public void draw(DrawManager DM){
-        DM.drawEntity(this.ship, this.ship.getPositionX(),
-                this.ship.getPositionY());
-        DM.drawScore(screen, this.score);
-        DM.drawLives(screen, this.lives);
     }
 
     //점수 추가
@@ -143,14 +147,6 @@ public class Player{
 
     public void setShipsDestroyed(int shipsDestroyed) {
         this.shipsDestroyed = shipsDestroyed;
-    }
-
-    public GameScreen getScreen() {
-        return screen;
-    }
-
-    public void setScreen(GameScreen screen) {
-        this.screen = screen;
     }
 
     public int[] getInputs() {

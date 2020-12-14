@@ -16,42 +16,9 @@ import entity.*;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */
-public class GameScreen extends Screen {
+public class GameScreen extends IGameScreen {
 
-	/** Milliseconds until the screen accepts user input. */
-	private static final int INPUT_DELAY = 6000;
-	/** Bonus score for each life remaining at the end of the level. */
-	private static final int LIFE_SCORE = 100;
-	/** Minimum time between bonus ship's appearances. */
-	private static final int BONUS_SHIP_INTERVAL = 20000;
-	/** Maximum variance in the time between bonus ship's appearances. */
-	private static final int BONUS_SHIP_VARIANCE = 10000;
-	/** Time until bonus ship explosion disappears. */
-	private static final int BONUS_SHIP_EXPLOSION = 500;
-	/** Time from finishing the level to screen change. */
-	private static final int SCREEN_CHANGE_INTERVAL = 1500;
-	/** Height of the interface separation line. */
-	private static final int SEPARATION_LINE_HEIGHT = 40;
-
-	/** Current game difficulty settings. */
-	private GameSettings gameSettings;
-	/** Current difficulty level number. */
-	private int level;
-	private IGameState.Difficult difficult;
-	/** Formation of enemy ships. */
-	private EnemyShipFormation enemyShipFormation;
-	/** Player's ship. */
 	private Ship ship;
-	/** Bonus enemy ship that appears sometimes. */
-	private EnemyShip enemyShipSpecial;
-	/** Minimum time between bonus ship appearances. */
-	private Cooldown enemyShipSpecialCooldown;
-	/** Time until bonus ship explosion disappears. */
-	private Cooldown enemyShipSpecialExplosionCooldown;
-	/** Time from finishing the level to screen change. */
-	private Cooldown screenFinishedCooldown;
-	/** Set of all bullets fired by on screen ships. */
-	private Set<Bullet> bullets;
 	/** Current score. */
 	private int score;
 	/** Player lives left. */
@@ -60,14 +27,6 @@ public class GameScreen extends Screen {
 	private int bulletsShot;
 	/** Total ships destroyed by the player. */
 	private int shipsDestroyed;
-	/** Moment the game starts. */
-	private long gameStartTime;
-	/** Checks if the level is finished. */
-	private boolean levelFinished;
-	/** Checks if a bonus life is received. */
-	private boolean bonusLife;
-
-	private Cooldown pauseDelay;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -100,6 +59,8 @@ public class GameScreen extends Screen {
 			this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
+
+		this.returnCode = 0;
 	}
 
 	/**
@@ -108,25 +69,8 @@ public class GameScreen extends Screen {
 	public final void initialize() {
 		super.initialize();
 
-		enemyShipFormation = new EnemyShipFormation(this.gameSettings);
-		enemyShipFormation.attach(this);
 		this.ship = new Ship(this.width / 2, this.height - 30);
-		// Appears each 10-30 seconds.
-		this.enemyShipSpecialCooldown = Core.getVariableCooldown(
-				BONUS_SHIP_INTERVAL, BONUS_SHIP_VARIANCE);
-		this.enemyShipSpecialCooldown.reset();
-		this.enemyShipSpecialExplosionCooldown = Core
-				.getCooldown(BONUS_SHIP_EXPLOSION);
-		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
-		this.bullets = new HashSet<Bullet>();
 
-		// Special input delay / countdown.
-		this.gameStartTime = System.currentTimeMillis();
-		this.inputDelay = Core.getCooldown(INPUT_DELAY);
-		this.inputDelay.reset();
-
-		this.pauseDelay = Core.getCooldown(200);
-		this.pauseDelay.reset();
 	}
 
 	/**
@@ -166,6 +110,24 @@ public class GameScreen extends Screen {
 				}
 			}
 
+			//////////치트 영역///////////
+
+			//점수 증가
+			if (inputManager.isKeyDown(KeyEvent.VK_1)) {
+				score += 100;
+			}
+			//목숨 감소
+			if (inputManager.isKeyDown(KeyEvent.VK_2)) {
+					lives -= 1;
+			}
+			//레벨 클리어
+			if (inputManager.isKeyDown(KeyEvent.VK_3)) {
+				this.levelFinished = true;
+				this.screenFinishedCooldown.reset();
+			}
+			///////////치트 끝//////////
+
+
 			if (!this.ship.isDestroyed()) {
 				boolean moveRight = inputManager.isKeyDown(KeyEvent.VK_RIGHT)
 						|| inputManager.isKeyDown(KeyEvent.VK_D);
@@ -183,7 +145,7 @@ public class GameScreen extends Screen {
 				if (moveLeft && !isLeftBorder) {
 					this.ship.moveLeft();
 				}
-				if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
+				if (inputManager.isKeyDown(KeyEvent.VK_SPACE) || inputManager.isKeyDown(KeyEvent.VK_UP))
 					if (this.ship.shoot(this.bullets))
 						this.bulletsShot++;
 			}
@@ -269,20 +231,7 @@ public class GameScreen extends Screen {
 		drawManager.completeDrawing(this);
 	}
 
-	/**
-	 * Cleans bullets that go off screen.
-	 */
-	private void cleanBullets() {
-		Set<Bullet> recyclable = new HashSet<Bullet>();
-		for (Bullet bullet : this.bullets) {
-			bullet.update();
-			if (bullet.getPositionY() < SEPARATION_LINE_HEIGHT
-					|| bullet.getPositionY() > this.height)
-				recyclable.add(bullet);
-		}
-		this.bullets.removeAll(recyclable);
-		//BulletPool.recycle(recyclable);
-	}
+
 
 	/**
 	 * Manages collisions between bullets and ships.
@@ -323,30 +272,6 @@ public class GameScreen extends Screen {
 		BulletPool.recycle(recyclable);
 	}
 
-	/**
-	 * Checks if two entities are colliding.
-	 * 
-	 * @param a
-	 *            First entity, the bullet.
-	 * @param b
-	 *            Second entity, the ship.
-	 * @return Result of the collision test.
-	 */
-	private boolean checkCollision(final Entity a, final Entity b) {
-		// Calculate center point of the entities in both axis.
-		int centerAX = a.getPositionX() + a.getWidth() / 2;
-		int centerAY = a.getPositionY() + a.getHeight() / 2;
-		int centerBX = b.getPositionX() + b.getWidth() / 2;
-		int centerBY = b.getPositionY() + b.getHeight() / 2;
-		// Calculate maximum distance without collision.
-		int maxDistanceX = a.getWidth() / 2 + b.getWidth() / 2;
-		int maxDistanceY = a.getHeight() / 2 + b.getHeight() / 2;
-		// Calculates distance.
-		int distanceX = Math.abs(centerAX - centerBX);
-		int distanceY = Math.abs(centerAY - centerBY);
-
-		return distanceX < maxDistanceX && distanceY < maxDistanceY;
-	}
 
 	/**
 	 * Returns a GameState object representing the status of the game.
@@ -357,18 +282,5 @@ public class GameScreen extends Screen {
 		return new GameState(this.level, this.difficult, this.score, this.lives,
 				this.bulletsShot, this.shipsDestroyed);
 	}
-	private double getDifficultScore(){
-		switch (difficult){
-			case EASY -> {
-				return 0.7;
-			}
-			case NORMAL -> {
-				return 1.0;
-			}
-			case HARD -> {
-				return 1.4;
-			}
-		}
-		return 1.0;
-	}
+
 }

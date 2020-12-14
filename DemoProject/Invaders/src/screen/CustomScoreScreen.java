@@ -42,6 +42,8 @@ public class CustomScoreScreen extends Screen {
     private int player;
     private int playernum;
     private String[] playerName;
+
+    CustomGameState.MultiMethod method;
     String difficultstr = "";
 
     /**
@@ -70,6 +72,7 @@ public class CustomScoreScreen extends Screen {
         this.name = new char[playernum][3];
         this.nameCharSelected = new int[playernum];
         this.playerName = new String[playernum];
+        this.method =  gameState.getMethod();
 
         switch (gameState.getDifficult()){
             case EASY -> {difficultstr = "easy";}
@@ -89,6 +92,11 @@ public class CustomScoreScreen extends Screen {
             this.nameCharSelected[i] = 0;
             this.playerName[i] = p.getName();
 
+
+            if( this.method == CustomGameState.MultiMethod.P2PCLIENT && i == 0 )
+                continue;
+            if( this.method == CustomGameState.MultiMethod.P2PHOST && i == 1 )
+                continue;
             try {
                 this.highScores = Core.getFileManager().loadHighScores(difficultstr+"scores");
                 if (highScores.size() < MAX_HIGH_SCORE_NUM
