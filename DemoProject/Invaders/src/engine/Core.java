@@ -217,6 +217,7 @@ public final class Core implements Serializable {
 //                    for( int i = 3 ; i < playernum ;++i)
 //                        input[i] = new int[]{KeyEvent.VK_NUMPAD3, KeyEvent.VK_NUMPAD1, KeyEvent.VK_NUMPAD5};
 
+                    players.clear();
                     for( int i = 0 ; i < playernum ; i++)
                         players.add( new Player("Player"+(i+1), 0,MAX_LIVES, input[i]));
                     startlives = MAX_LIVES;
@@ -298,6 +299,7 @@ public final class Core implements Serializable {
                                 input[0] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_SPACE};
                                 input[1] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_SPACE};
 
+                                players.clear();
                                 players.add(new Player(((CreateRoomScreen)currentScreen).getMyname(), 0, MAX_LIVES, input[0],false));
                                 players.add(new Player(((CreateRoomScreen)currentScreen).getRoomPacket().getName(), 0, MAX_LIVES, input[1],true));
 
@@ -353,6 +355,7 @@ public final class Core implements Serializable {
                                 input[0] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_SPACE};
                                 input[1] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_SPACE};
 
+                                players.clear();
                                 players.add(new Player(((ConnectRoomScreen) currentScreen).getMyname(), 0, MAX_LIVES, input[0],false));
                                 players.add(new Player(((ConnectRoomScreen) currentScreen).getMyname(), 0, MAX_LIVES, input[1],true));
 
